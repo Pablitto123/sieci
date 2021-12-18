@@ -14,7 +14,18 @@
 Package PackageQueue::pop() {
     if (!empty()) {
         Package buff = products_lst_.front();
-        products_lst_.pop_front();
+        switch (queue_type_) {
+            case PackageQueueType::FIFO:
+                buff = products_lst_.front();
+                products_lst_.pop_front();
+                return buff;
+            case PackageQueueType::LIFO:
+                buff = products_lst_.front();
+                products_lst_.pop_front();
+                break;
+            default:
+                break;
+        }
         return buff;
     } else {
         //TODO: throw an exception
