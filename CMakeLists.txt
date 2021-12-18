@@ -8,7 +8,7 @@ include_directories(
 )
 
 set(SOURCE_FILES
-        src/storage.cpp
-        )
+        src/storage_types.cpp
+        include/package.hpp src/package.cpp)
 
 add_executable(sieci ${SOURCE_FILES} main.cpp)

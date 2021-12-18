@@ -1,8 +1,9 @@
 //
-// Created by Sebastian on 16.12.2021.
+// Created by nikos on 18.12.2021.
 //
-#ifndef SIECI_STORAGE_HPP
-#define SIECI_STORAGE_HPP
+
+#ifndef SIECI_PACKAGE_HPP
+#define SIECI_PACKAGE_HPP
 
 #include <types.hpp>
 #include <algorithm>
@@ -25,17 +26,5 @@ public:
     ElementID get_id(){return Id_;};
     ~Package(){delete &Id_; /*delete &assigned_IDs; delete &freed_IDs;*/ };
 
-    };
-
-
-class PackageQueue{};
-
-class IPackageQueue{};
-
-class IPackageStockpile{};
-
-class PackageQueueType{};
-
-
-
-#endif //SIECI_STORAGE_HPP
+};
+#endif //SIECI_PACKAGE_HPP
