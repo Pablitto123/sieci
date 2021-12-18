@@ -11,6 +11,6 @@
 #include <iostream>
 #include <set>
 
-using ElementID = long long int;
+using ElementID = unsigned long long;
 
 #endif //STORAGE_HPP_TYPES_HPP

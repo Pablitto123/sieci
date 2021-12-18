@@ -18,7 +18,9 @@ class IPackageQueue{};
 
 class IPackageStockpile{};
 
-class PackageQueueType{};
+enum class PackageQueueType{
+    FIFO,LIFO
+};
 
 
 
