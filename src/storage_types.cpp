@@ -10,5 +10,12 @@
 #include "storage_types.hpp"
 #include <set>
 
+PackageQueue::PackageQueue(PackageQueueType type){
+    queue_type_ = type;
+}
+
+Package PackageQueue::pop() {}
+
+void PackageQueue::push(Package &pack) {}
 
 
