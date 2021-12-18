@@ -23,7 +23,7 @@ public:
     using const_iterator = std::list<Package>::const_iterator;
     using iterator = std::list<Package>::const_iterator;
 
-    virtual void push(Package &pack) {};
+    virtual void push(Package &&pack) {};
 
     virtual const_iterator cbegin() {};
 
@@ -33,7 +33,7 @@ public:
 
     virtual iterator end() {};
 
-    virtual std::size_t size() { return std::size_t(std::distance(cbegin(), cend())); };
+    virtual std::size_t size() {};
 
     virtual bool empty() {};
 
@@ -48,12 +48,13 @@ public:
     virtual Package pop() {};
 
     virtual PackageQueueType get_queuetype() {};
+
+    virtual ~IPackageQueue() = default;
 };
 
 class PackageQueue : public IPackageQueue {
 public:
-    PackageQueue(PackageQueueType type);
-
+    PackageQueue(PackageQueueType type) : queue_type_(type) {};
 
     const_iterator cbegin() { return products_lst_.cbegin(); }
 
@@ -63,13 +64,17 @@ public:
 
     iterator end() { return products_lst_.cbegin(); }
 
-    void push(Package &pack);
+    std::size_t size() { return std::size_t(std::distance(cbegin(), cend())); };
+
+    void push(Package &&pack);
 
     Package pop();
 
-    bool empty(){ return size() == 0; }
+    bool empty() { return size() == 0; }
 
-    PackageQueueType get_queue_type(){ return queue_type_; }
+    PackageQueueType get_queue_type() { return queue_type_; }
+
+    ~PackageQueue() = default;
 
 private:
 

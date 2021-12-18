@@ -10,12 +10,28 @@
 #include "storage_types.hpp"
 #include <set>
 
-PackageQueue::PackageQueue(PackageQueueType type){
-    queue_type_ = type;
+
+Package PackageQueue::pop() {
+    if (!empty()) {
+        Package buff = products_lst_.front();
+        products_lst_.pop_front();
+        return buff;
+    } else {
+        //TODO: throw an exception
+    }
 }
 
-Package PackageQueue::pop() {}
-
-void PackageQueue::push(Package &pack) {}
+void PackageQueue::push(Package &&pack) {
+    switch (queue_type_) {
+        case PackageQueueType::FIFO:
+            products_lst_.emplace_back(pack);
+            break;
+        case PackageQueueType::LIFO:
+            products_lst_.emplace_front(pack);
+            break;
+        default:
+            break;
+    }
+}
 
 
