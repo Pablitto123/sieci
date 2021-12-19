@@ -64,7 +64,7 @@ public:
 
     iterator end() { return products_lst_.end(); }
 
-    std::size_t size() { return std::size_t(std::distance(cbegin(), cend())); };
+    unsigned long long size() { return std::distance(begin(), end()); };
 
     void push(Package &&pack);
 
