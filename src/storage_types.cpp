@@ -13,14 +13,14 @@
 
 Package PackageQueue::pop() {
     if (!empty()) {
-        Package buff = products_lst_.front();
+        Package buff;
         switch (queue_type_) {
             case PackageQueueType::FIFO:
-                buff = products_lst_.front();
+                buff = std::move(products_lst_.front());
                 products_lst_.pop_front();
                 return buff;
             case PackageQueueType::LIFO:
-                buff = products_lst_.front();
+                buff = std::move(products_lst_.front());
                 products_lst_.pop_front();
                 break;
             default:
@@ -35,10 +35,10 @@ Package PackageQueue::pop() {
 void PackageQueue::push(Package &&pack) {
     switch (queue_type_) {
         case PackageQueueType::FIFO:
-            products_lst_.emplace_back(pack);
+            products_lst_.emplace_back(std::move(pack));
             break;
         case PackageQueueType::LIFO:
-            products_lst_.emplace_front(pack);
+            products_lst_.emplace_front(std::move(pack));
             break;
         default:
             break;
