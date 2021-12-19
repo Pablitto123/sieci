@@ -60,9 +60,9 @@ public:
 
     const_iterator cend() { return products_lst_.cbegin(); }
 
-    iterator begin() { return products_lst_.cbegin(); }
+    iterator begin() { return products_lst_.begin(); }
 
-    iterator end() { return products_lst_.cbegin(); }
+    iterator end() { return products_lst_.end(); }
 
     std::size_t size() { return std::size_t(std::distance(cbegin(), cend())); };
 
@@ -72,7 +72,7 @@ public:
 
     bool empty() { return size() == 0; }
 
-    PackageQueueType get_queue_type() { return queue_type_; }
+    PackageQueueType get_queue_type() const { return queue_type_; }
 
     ~PackageQueue() = default;
 
