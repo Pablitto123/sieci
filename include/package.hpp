@@ -20,11 +20,11 @@ private:
     ElementID Id_;
 public:
     Package();
-    //Package(ElementID Id ){Id_=Id;}
-    //Package(Package&&)
-    //operator=(Package&&) : Package&
-    ElementID get_id(){return Id_;};
-    ~Package(){delete &Id_; /*delete &assigned_IDs; delete &freed_IDs;*/ };
+    explicit Package(ElementID Id );
+    Package(Package&& package) noexcept :Id_(package.Id_){};
+    Package& operator=(Package&& package){return *this;}
+    ElementID get_id() const {return Id_;};
+    ~Package();
 
 };
 #endif //SIECI_PACKAGE_HPP
