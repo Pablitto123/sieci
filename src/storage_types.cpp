@@ -12,8 +12,8 @@
 
 
 Package PackageQueue::pop() {
+    Package buff;
     if (!empty()) {
-        Package buff;
         switch (queue_type_) {
             case PackageQueueType::FIFO:
                 buff = std::move(products_lst_.front());
@@ -24,12 +24,14 @@ Package PackageQueue::pop() {
                 products_lst_.pop_front();
                 break;
             default:
-                break;
+                throw std::invalid_argument("no such a queue type");
         }
         return buff;
     } else {
         //TODO: throw an exception
+        throw std::invalid_argument("queue is empty");
     }
+
 }
 
 void PackageQueue::push(Package &&pack) {

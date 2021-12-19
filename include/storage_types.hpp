@@ -47,7 +47,7 @@ class IPackageQueue : public IPackageStockpile {
 public:
     virtual Package pop() = 0;
 
-    virtual PackageQueueType get_queuetype() = 0;
+    virtual PackageQueueType get_queue_type() const = 0;
 
     virtual ~IPackageQueue() = default;
 };
