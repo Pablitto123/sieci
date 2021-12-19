@@ -70,7 +70,7 @@ public:
 
     Package pop();
 
-    bool empty() const { return size() == 0; }
+    bool empty() { return size() == 0; }
 
     PackageQueueType get_queue_type() const { return queue_type_; }
 
