@@ -9,24 +9,25 @@
 #include <iostream>
 #include "storage_types.hpp"
 #include <set>
+#include <memory>
 
 
 Package PackageQueue::pop() {
-    Package buff;
+    Package* buff = NULL;
     if (!empty()) {
         switch (queue_type_) {
             case PackageQueueType::FIFO:
-                buff = std::move(products_lst_.front());
+                buff = std::move(&products_lst_.front());
                 products_lst_.pop_front();
-                return buff;
+                break;
             case PackageQueueType::LIFO:
-                buff = std::move(products_lst_.front());
+                buff = std::move(&products_lst_.front());
                 products_lst_.pop_front();
                 break;
             default:
                 throw std::invalid_argument("no such a queue type");
         }
-        return buff;
+        return std::move(*buff);
     } else {
         //TODO: throw an exception
         throw std::invalid_argument("queue is empty");
