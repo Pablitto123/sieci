@@ -23,19 +23,19 @@ public:
     using const_iterator = std::list<Package>::const_iterator;
     using iterator = std::list<Package>::const_iterator;
 
-    virtual void push(Package &&pack) {};
+    virtual void push(Package &&pack) = 0;
 
-    virtual const_iterator cbegin() {};
+    virtual const_iterator cbegin() = 0;
 
-    virtual const_iterator cend() {};
+    virtual const_iterator cend() = 0;
 
-    virtual iterator begin() {};
+    virtual iterator begin() = 0;
 
-    virtual iterator end() {};
+    virtual iterator end() = 0;
 
-    virtual std::size_t size() {};
+    virtual std::size_t size() = 0;
 
-    virtual bool empty() {};
+    virtual bool empty() = 0;
 
     virtual ~IPackageStockpile() = default;
 
@@ -45,9 +45,9 @@ private:
 
 class IPackageQueue : public IPackageStockpile {
 public:
-    virtual Package pop() {};
+    virtual Package pop() = 0;
 
-    virtual PackageQueueType get_queuetype() {};
+    virtual PackageQueueType get_queuetype() = 0;
 
     virtual ~IPackageQueue() = default;
 };
