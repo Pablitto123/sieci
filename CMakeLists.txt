@@ -20,7 +20,9 @@ add_executable(sieci ${SOURCE_FILES} main.cpp)
 
 set(SOURCES_FILES_TESTS
         test/test_package.cpp
-        test/test_package.cpp)
+        test/test_package.cpp
+        test/test_package_mm.cpp
+        )
 
 # Dodaj konfigurację typu `Test`.
 add_executable(my_project_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)
