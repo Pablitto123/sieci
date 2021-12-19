@@ -22,7 +22,7 @@ set(SOURCES_FILES_TESTS
         test/test_package.cpp
         test/test_package.cpp
         test/test_package_mm.cpp
-        )
+        test/test_package_pm.cpp)
 
 # Dodaj konfigurację typu `Test`.
 add_executable(my_project_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)
