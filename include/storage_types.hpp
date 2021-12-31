@@ -49,12 +49,12 @@ public:
 
     virtual PackageQueueType get_queue_type() const = 0;
 
-    virtual ~IPackageQueue() = default;
+    ~IPackageQueue() override = default;
 };
 
 class PackageQueue : public IPackageQueue {
 public:
-    PackageQueue(PackageQueueType type) : queue_type_(type) {};
+    explicit PackageQueue(PackageQueueType type) : queue_type_(type) {};
 
     const_iterator cbegin() override { return products_lst_.cbegin(); }
 
@@ -74,7 +74,7 @@ public:
 
     PackageQueueType get_queue_type() const override { return queue_type_; }
 
-    ~PackageQueue() = default;
+    ~PackageQueue() override = default;
 
 private:
 
