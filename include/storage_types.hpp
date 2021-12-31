@@ -56,23 +56,23 @@ class PackageQueue : public IPackageQueue {
 public:
     PackageQueue(PackageQueueType type) : queue_type_(type) {};
 
-    const_iterator cbegin() { return products_lst_.cbegin(); }
+    const_iterator cbegin() override { return products_lst_.cbegin(); }
 
-    const_iterator cend() { return products_lst_.cbegin(); }
+    const_iterator cend() override { return products_lst_.cbegin(); }
 
-    iterator begin() { return products_lst_.begin(); }
+    iterator begin() override { return products_lst_.begin(); }
 
-    iterator end() { return products_lst_.end(); }
+    iterator end() override { return products_lst_.end(); }
 
-    unsigned long long size() { return std::distance(begin(), end()); };
+    unsigned long long size() override { return std::distance(begin(), end()); };
 
-    void push(Package &&pack);
+    void push(Package &&pack) override;
 
-    Package pop();
+    Package pop() override;
 
-    bool empty() { return size() == 0; }
+    bool empty() override { return size() == 0; }
 
-    PackageQueueType get_queue_type() const { return queue_type_; }
+    PackageQueueType get_queue_type() const override { return queue_type_; }
 
     ~PackageQueue() = default;
 
