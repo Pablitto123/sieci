@@ -22,7 +22,7 @@ public:
     Package();
     explicit Package(ElementID Id );
     Package(Package&& package) noexcept :Id_(package.Id_){};
-    Package& operator=(Package&&){return *this;}
+    Package& operator=(Package&&) noexcept {return *this;}
     ElementID get_id() const {return Id_;};
     ~Package();
 
