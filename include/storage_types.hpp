@@ -33,7 +33,7 @@ public:
 
     virtual iterator end() = 0;
 
-    virtual std::size_t size() = 0;
+    virtual unsigned int size() = 0;
 
     virtual bool empty() = 0;
 
@@ -64,7 +64,7 @@ public:
 
     iterator end() override { return products_lst_.end(); }
 
-    unsigned long long size() override { return std::distance(begin(), end()); };
+    unsigned int size() override { return std::distance(begin(), end()); };
 
     void push(Package &&pack) override;
 

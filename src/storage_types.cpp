@@ -3,17 +3,13 @@
 //
 
 #include <algorithm>
-#include <stack>
-#include <optional>
-#include <vector>
 #include <iostream>
 #include "storage_types.hpp"
-#include <set>
-#include <memory>
+
 
 
 Package PackageQueue::pop() {
-    Package* buff = nullptr;
+    Package* buff;
     if (!empty()) {
         switch (queue_type_) {
             case PackageQueueType::FIFO:
