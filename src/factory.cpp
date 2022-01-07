@@ -12,9 +12,3 @@
 #include <set>
 #include <list>
 #include <types.hpp>
-
-
-
-void NodeCollection::remove_by_id(ElementID id){
-
-};

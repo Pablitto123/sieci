@@ -12,13 +12,6 @@
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
-
-    NodeCollection<int> proba;
-
-    auto it = proba.cbegin();
-
-    std::cout << std::string(typeid(it)) ;
-
     return 0;
 
 }
