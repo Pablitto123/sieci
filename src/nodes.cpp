@@ -36,7 +36,9 @@ std::optional<Package>& PackageSender::get_sending_buffer(){///to się spierdoli
 }
 
 void PackageSender::push_package(Package&& p){
-    buffor_ = std::move(p);
+    if (!buffor_){
+        buffor_ = std::move(p);
+    }
 }
 
 void PackageSender::send_package(){
