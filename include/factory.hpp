@@ -12,29 +12,37 @@
 #include <vector>
 #include <iostream>
 #include <set>
-
+#include "factory.hpp"
 
 template<typename T>
 
 class NodeCollection{
 private:
     std::vector<T> collection_;
+    using const_iterator = std::vector<T>::const_iterator;
+    using iterator =  std::vector<T>::iterator;
 public:
-    const_iterator cbegin() override { return products_lst_.cbegin(); }
-    const_iterator cend() override { return products_lst_.cbegin(); }
-    iterator begin() override { return products_lst_.begin(); }
-    iterator end() override { return products_lst_.end(); }
-    add(node: Node&&);
-    remove_by_id(id: ElementID);
-    find_by_id(id: ElementID);
-    find_by_id(id: ElementID);
+    const_iterator cbegin() { return collection_.cbegin(); }
+
+    const_iterator cend()  { return collection_.cbegin(); }
+
+    iterator begin()  { return collection_.begin(); }
+
+    iterator end()  { return collection_.end(); }
+
+    iterator find_by_id(ElementID id){
+        collection_.find
+    };
+//    void add(Node&& node);
+    void remove_by_id(ElementID id);
+//    const_iterator find_by_id(ElementID id);
 
 };
 
 
 class Factory{
 private:
-    Colletion NodeCollection
+    Colletion NodeCollection;
 public:
     add_ramp(Ramp&&);
     remove_ramp(id: ElementID);
