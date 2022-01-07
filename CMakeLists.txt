@@ -9,7 +9,11 @@ include_directories(
 
 set(SOURCE_FILES
         src/storage_types.cpp
-        src/package.cpp)
+        src/package.cpp
+        src/nodes.cpp
+        src/factory.cpp
+        src/helpers.cpp
+        )
 
 add_executable(sieci ${SOURCE_FILES} main.cpp)
 
@@ -22,7 +26,7 @@ set(SOURCES_FILES_TESTS
         test/test_package.cpp
         test/test_package.cpp
         test/test_package_mm.cpp
-        test/test_package_pm.cpp include/factory.hpp src/factory.cpp)
+        test/test_package_pm.cpp include/factory.hpp src/factory.cpp include/nodes.hpp src/nodes.cpp)
 
 # Dodaj konfigurację typu `Test`.
 add_executable(my_project_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)
