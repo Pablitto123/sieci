@@ -35,15 +35,14 @@ private:
 
 class PackageSender{
 public:
-    PackageSender(PackageSender&& sender) : receiver_preferences_(sender.receiver_preferences_){};
+    PackageSender(PackageSender&& sender) = default;
     void send_package();
     std::optional<Package>& get_sending_buffer();
     ~PackageSender() = default;
-protected:
-    void push_package(Package&&);
-private:
     ReceiverPreferences receiver_preferences_;
-
+protected:
+    void push_package(Package&& p);
+    std::optional<Package>& buffor_;
 };
 
 class Ramp: public PackageSender {

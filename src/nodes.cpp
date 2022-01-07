@@ -30,3 +30,16 @@ void ReceiverPreferences::add_receiver( IPackageReceiver* r){
 void ReceiverPreferences::remove_receiver(IPackageReceiver* r){
     pref_.erase(r);
 }
+
+std::optional<Package>& PackageSender::get_sending_buffer(){
+    return buffor_;
+}
+
+void PackageSender::push_package(Package&& p){
+    buffor_ = std::move(p);
+}
+
+void PackageSender::send_package(){
+    receiver_preferences_.choose_receiver().receive_package(std::move(buffor_));/// <--- def metody potrzebóje
+    buffor_.reset();
+}
