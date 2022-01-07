@@ -12,7 +12,6 @@
 #include <vector>
 #include <iostream>
 #include <set>
-#include "factory.hpp"
 #include <list>
 
 template<typename T>
@@ -31,14 +30,13 @@ public:
 
     iterator end()  { return collection_.end(); }
 
-    iterator find_by_id(ElementID id) const {std::find(cbegin(),cend(),id);};
-//    void add(Node&& node);
+    iterator find_by_id(ElementID id) {std::find(begin(),end(),id);};
+    const_iterator find_by_id(ElementID id) const{std::find(cbegin(),cend(),id);};
+    void add(T&& node){collection_.emplace_back(std::move(node));};
     void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
-//    const_iterator find_by_id(ElementID id);
 
 };
-//
-//
+
 //class Factory{
 //private:
 //    Colletion NodeCollection;
