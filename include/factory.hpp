@@ -5,6 +5,14 @@
 #ifndef SIECI_FACTORY_HPP
 #define SIECI_FACTORY_HPP
 
+#include <types.hpp>
+#include <algorithm>
+#include <stack>
+#include <optional>
+#include <vector>
+#include <iostream>
+#include <set>
+
 
 template<typename T>
 
@@ -12,11 +20,15 @@ class NodeCollection{
 private:
     std::vector<T> collection_;
 public:
+    const_iterator cbegin() override { return products_lst_.cbegin(); }
+    const_iterator cend() override { return products_lst_.cbegin(); }
+    iterator begin() override { return products_lst_.begin(); }
+    iterator end() override { return products_lst_.end(); }
     add(node: Node&&);
     remove_by_id(id: ElementID);
     find_by_id(id: ElementID);
     find_by_id(id: ElementID);
-    //iteratory
+
 };
 
 
