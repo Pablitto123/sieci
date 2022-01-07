@@ -42,7 +42,7 @@ public:
     ReceiverPreferences receiver_preferences_;
 protected:
     void push_package(Package&& p);
-    std::optional<Package>& buffor_;
+    std::optional<Package>&& buffor_;
 };
 
 class Ramp: public PackageSender {

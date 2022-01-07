@@ -31,7 +31,7 @@ void ReceiverPreferences::remove_receiver(IPackageReceiver* r){
     pref_.erase(r);
 }
 
-std::optional<Package>& PackageSender::get_sending_buffer(){
+std::optional<Package>& PackageSender::get_sending_buffer(){///to się spierdoli
     return buffor_;
 }
 
