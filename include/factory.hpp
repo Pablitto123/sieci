@@ -5,9 +5,24 @@
 #ifndef SIECI_FACTORY_HPP
 #define SIECI_FACTORY_HPP
 
+
+template<typename T>
+
+class NodeCollection{
+private:
+    std::vector<T> collection_;
+public:
+    add(node: Node&&);
+    remove_by_id(id: ElementID);
+    find_by_id(id: ElementID);
+    find_by_id(id: ElementID);
+    //iteratory
+};
+
+
 class Factory{
 private:
-
+    Colletion NodeCollection
 public:
     add_ramp(Ramp&&);
     remove_ramp(id: ElementID);
@@ -35,18 +50,6 @@ public:
     do_work(Time);
 
 
-};
-
-class NodeCollection{
-private:
-
-
-public:
-    add(node: Node&&);
-    remove_by_id(id: ElementID);
-    find_by_id(id: ElementID);
-    find_by_id(id: ElementID);
- //iteratory
 };
 
 
