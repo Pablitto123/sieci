@@ -10,6 +10,8 @@ extern std::random_device rd;
 extern std::mt19937 rng;
 
 using ProbabilityGenerator = std::function<double()>;
+using Time = unsigned long int;
+using TimeOffset = unsigned long int;
 
 extern double default_probability_generator();
 
