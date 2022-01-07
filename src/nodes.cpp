@@ -29,6 +29,14 @@ void ReceiverPreferences::add_receiver( IPackageReceiver* r){
 }
 void ReceiverPreferences::remove_receiver(IPackageReceiver* r){
     pref_.erase(r);
+    /// zapewnienie niezmiennika
+    double sum = 0;
+    for(auto i : pref_){
+        sum += i.second;
+    }
+    for(auto i : pref_){
+        i.second = i.second/sum;
+    }
 }
 
 std::optional<Package>& PackageSender::get_sending_buffer(){///to się spierdoli
@@ -42,6 +50,12 @@ void PackageSender::push_package(Package&& p){
 }
 
 void PackageSender::send_package(){
-    receiver_preferences_.choose_receiver().receive_package(std::move(buffor_));/// <--- def metody potrzebóje
+    ///receiver_preferences_.choose_receiver().receive_package(std::move(buffor_));/// <--- def metody potrzebóje
     buffor_.reset();
+}
+void Ramp::deliver_goods(Time t){
+    if (t%di_) {
+        Package tt = Package();
+        push_package(std::move(tt));
+    }
 }
