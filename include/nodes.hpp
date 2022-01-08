@@ -37,8 +37,8 @@ public:
     preferences_t& get_preferences(){ return pref_;}
     const_iterator cbegin(){ return pref_.cbegin(); }
     const_iterator cend(){ return pref_.cend(); }
-    preferences_t::iterator begin(){ return pref_.begin(); }
-    preferences_t::iterator end(){ return pref_.end(); }
+    preferences_t::iterator begin() const { return pref_.begin(); }
+    preferences_t::iterator end() const { return pref_.end(); }
 private:
     preferences_t pref_;
     ProbabilityGenerator pg_;
