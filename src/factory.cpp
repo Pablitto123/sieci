@@ -1,6 +1,8 @@
 //
 // Created by Sebastian on 07.01.2022.
 //
+#include <stack>
+#include <functional>
 #include "nodes.hpp"
 #include "factory.hpp"
 #include <types.hpp>
@@ -12,7 +14,6 @@
 #include <set>
 #include <list>
 #include <types.hpp>
-
 
 std::size_t find_index(ElementID id, std::vector<ElementID>& map_work){
     std::size_t size;
@@ -43,13 +44,15 @@ bool Factory::is_consistent() {
             };
         };
     };
+    bool pom = false;
     for(auto it = worker_cbegin(); it != worker_cend(); it ++){
-        if(it->get_receiver_type() == ReceiverType::STOREHOUSE){
-            storage_access.push_back(true);
-
-        }else{
-            storage_access.push_back(false);
+        for(auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cend();it2++) {
+            if(it2->first->get_receiver_type() == ReceiverType::STOREHOUSE){
+                pom = true;
+            };
         };
+        storage_access.push_back(pom);
+        pom = false;
     };
 
     for(auto it = worker_cbegin(); it != worker_cend(); it ++){
@@ -69,6 +72,38 @@ bool Factory::is_consistent() {
     };
 
 
+    std::function<bool(std::vector<std::vector<bool>>&,std::size_t,std::vector<bool>)> dfs_algorithm_function = [](std::vector<std::vector<bool>>& graph,std::size_t index,std::vector<bool> access){
+        if(graph.empty()){
+            return true;
+        }
+        std::vector<bool> is_checked;
+        for(auto i : graph){
+            is_checked.push_back(false);
+        }
+        std::stack<int> stack;
+        stack.push(index);
+        if(access[index]){return true;};
 
+        int top = stack.top();
+        while(!stack.empty()){
+            top = stack.top();
+            stack.pop();
+            is_checked[top] = true;
+            for(auto i : graph[top]){
+                if(!is_checked[i]){
+                    if(access[i]){return true;};
+                    stack.push(i);
+                }
+            }
+        }
+        return false;
+
+    };
+
+    for(auto it: ramp_id){
+        if(!dfs_algorithm_function(workers_connection, find_index(it,map_workers),storage_access)){return false;};
+
+    };
+    return true;
 
 };
