@@ -15,6 +15,15 @@
 #include <list>
 #include <types.hpp>
 
+template<typename T>
+typename NodeCollection<T>::iterator NodeCollection<T>::find_by_id(ElementID id) {
+    begin()->get_id();
+}
+template<> NodeCollection<Ramp>::iterator NodeCollection<Ramp>::find_by_id(ElementID id) {
+    return begin();
+}
+
+
 std::size_t find_index(ElementID id, std::vector<ElementID>& map_work){
     std::size_t size;
     for(std::size_t i=0;i < std::size(map_work);i++) {
@@ -107,3 +116,4 @@ bool Factory::is_consistent() {
     return true;
 
 };
+
