@@ -13,6 +13,7 @@
 #include <iostream>
 #include <set>
 #include <list>
+#include "nodes.hpp"
 
 template<typename T>
 
@@ -37,29 +38,33 @@ public:
 
 };
 
-//class Factory{
-//private:
-//    Colletion NodeCollection;
-//public:
-//    add_ramp(Ramp&&);
-//    remove_ramp(id: ElementID);
-//    find_ramp_by_id(id: ElementID);
-//    find_ramp_by_id(id: ElementID);
-//    ramp_cbegin();
-//    ramp_cend();
-//    add_worker(Worker&&);
-//    remove_worker(id: ElementID);
-//    find_worker_by_id(id: ElementID);
-//    find_worker_by_id(id: ElementID);
-//    worker_cbegin();
-//    worker_cend();
-//    add_Storehouse(Storehouse&&);
-//    remove_Storehouse(id: ElementID);
-//    find_Storehouse_by_id(id: ElementID);
-//    find_Storehouse_by_id(id: ElementID);
-//    Storehouse_cbegin();
-//    Storehouse_cend();
-//    remove_receiver(collection: NodeCollection<Node>&, id: ElementID);
+class Factory{
+private:
+    NodeCollection<Ramp> ramps_;
+    NodeCollection<Worker> workers_;
+    NodeCollection<Storehouse> Storehouses_;
+
+public:
+    void add_ramp(Ramp&& ramp){ramps_.add(std::move(ramp));};
+    void remove_ramp(ElementID id){ramps_.remove_by_id(id);};
+    std::list<Ramp>::iterator find_ramp_by_id(ElementID id){ramps_.find_by_id(id);};
+//    std::list<Ramp>::const_iterator find_ramp_by_id(ElementID id){ramps_.find_by_id(id);};
+    std::list<Ramp>::const_iterator ramp_cbegin() { return ramps_.cbegin(); };
+    std::list<Ramp>::const_iterator ramp_cend() { return ramps_.cend(); };
+
+    void add_worker(Worker&& worker){workers_.add(std::move(worker));};
+    void remove_worker(ElementID id){workers_.remove_by_id(id);};
+    std::list<Worker>::iterator find_worker_by_id(ElementID id){workers_.find_by_id(id);};
+//    std::list<Worker>::const_iterator find_worker_by_id(ElementID id){workers_.find_by_id(id);};
+    std::list<Worker>::const_iterator worker_cbegin() { return workers_.cbegin(); };
+    std::list<Worker>::const_iterator worker_cend() { return workers_.cend(); };
+
+    void add_Storehouse(Storehouse&& storage){Storehouses_.add(std::move(storage));};
+    void remove_Storehouse(ElementID id){Storehouses_.remove_by_id(id);};
+    std::list<Storehouse>::iterator find_Storehouse_by_id(ElementID id){Storehouses_.find_by_id(id);};
+//    std::list<Storehouse>::const_iterator find_worker_by_id(ElementID id){Storehouses_.find_by_id(id);};
+    std::list<Storehouse>::const_iterator Storehouse_cbegin() { return Storehouses_.cbegin(); };
+    std::list<Storehouse>::const_iterator Storehouse_cend() { return Storehouses_.cend(); };
 //
 //    is_consistent();
 //    do_deliveries(Time);
@@ -67,7 +72,7 @@ public:
 //    do_work(Time);
 //
 //
-//};
+};
 
 
 #endif //SIECI_FACTORY_HPP
