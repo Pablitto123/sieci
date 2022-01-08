@@ -40,22 +40,34 @@ void ReceiverPreferences::remove_receiver(IPackageReceiver* r){
 }
 
 std::optional<Package>& PackageSender::get_sending_buffer(){///to się spierdoli
-    return buffor_;
+    return buffer_;
 }
 
 void PackageSender::push_package(Package&& p){
-    if (!buffor_){
-        buffor_ = std::move(p);
+    if (!buffer_){
+        buffer_ = std::move(p);
     }
 }
 
 void PackageSender::send_package(){
-    ///receiver_preferences_.choose_receiver().receive_package(std::move(buffor_));/// <--- def metody potrzebóje
-    buffor_.reset();
+    ///receiver_preferences_.choose_receiver().receive_package(std::move(buffer_));/// <--- def metody potrzebóje
+    buffer_.reset();
 }
 void Ramp::deliver_goods(Time t){
     if (t%di_) {
         Package tt = Package();
         push_package(std::move(tt));
+    }
+}
+
+void Worker::do_work(Time t) {
+    if(start_ == 0 and !q_->empty()){
+        buffer_processing_ = q_->pop();
+        start_ = t;
+    }
+    else if(t - start_ == pd_){
+        push_package(std::move(*buffer_processing_));
+        buffer_processing_.reset();
+        start_ = 0;
     }
 }

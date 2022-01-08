@@ -13,7 +13,17 @@
 #include <memory>
 
 /// definicja żeby nie było czerwono:
+enum class ReceiverType{
+    WORKER,
+    STOREHOUSE
+};
+
+
 class IPackageReceiver{
+public:
+    virtual void receive_package(Package&& p) = 0;
+    virtual ElementID get_id() = 0;
+    virtual ReceiverType get_receiver_type() = 0;
 };
 
 class ReceiverPreferences{
@@ -43,7 +53,7 @@ public:
     ReceiverPreferences receiver_preferences_;
 protected:
     void push_package(Package&& p);
-    std::optional<Package>&& buffor_;
+    std::optional<Package>&& buffer_;
 };
 
 class Ramp: public PackageSender {
@@ -58,17 +68,21 @@ private:
     TimeOffset di_;
 };
 
-class Worker: public PackageSender{
+class Worker: public PackageSender, public IPackageReceiver{
 public:
     Worker(PackageSender &&sender, ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(std::move(sender)), id_(id), pd_(pd), q_(std::move(q)){}; //??
     void do_work(Time t);
     [[nodiscard]] Time get_package_processing_start_time() const{return start_;};
     [[nodiscard]] TimeOffset get_processing_duration() const{return pd_;}
+    ElementID get_id() override{return id_;}
+    ReceiverType get_receiver_type() override{return ReceiverType::WORKER;}
+    void receive_package(Package &&p) override{q_->push(std::move(p));}
 private:
+    std::optional<Package> buffer_processing_;
     ElementID id_;
     TimeOffset pd_;
     std::unique_ptr<IPackageQueue> q_;
-    Time start_;
+    Time start_ = 0;
 
 };
 

@@ -33,7 +33,7 @@ public:
 
     iterator find_by_id(ElementID id) {std::find(begin(),end(),id);};
     const_iterator find_by_id(ElementID id) const{std::find(cbegin(),cend(),id);};
-    void add(T&& node){collection_.emplace_back(std::move(node));};
+    void add(T&& node){collection_.push_back(std::move(node));};
     void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
 
 };
