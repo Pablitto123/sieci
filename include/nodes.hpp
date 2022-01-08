@@ -10,6 +10,7 @@
 #include "storage_types.hpp"
 #include <map>
 #include <optional>
+#include <memory>
 
 /// definicja żeby nie było czerwono:
 class IPackageReceiver{
@@ -55,6 +56,29 @@ public:
 private:
     ElementID id_;
     TimeOffset di_;
+};
+
+class Worker: public PackageSender{
+public:
+    Worker(PackageSender &&sender, ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(std::move(sender)), id_(id), pd_(pd), q_(std::move(q)){}; //??
+    void do_work(Time t);
+    [[nodiscard]] Time get_package_processing_start_time() const{return start_;};
+    [[nodiscard]] TimeOffset get_processing_duration() const{return pd_;}
+private:
+    ElementID id_;
+    TimeOffset pd_;
+    std::unique_ptr<IPackageQueue> q_;
+    Time start_;
+
+};
+
+class Storehouse{
+public:
+    explicit Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d = std::make_unique<PackageQueue>(PackageQueueType::FIFO)):id_(id), d_(std::move(d)){}
+
+private:
+    ElementID id_;
+    std::unique_ptr<IPackageStockpile> d_;
 };
 
 
