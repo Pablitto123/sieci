@@ -15,13 +15,10 @@
 #include <list>
 #include <types.hpp>
 
-template<typename T>
-typename NodeCollection<T>::iterator NodeCollection<T>::find_by_id(ElementID id) {
-    begin()->get_id();
-}
-template<> NodeCollection<Ramp>::iterator NodeCollection<Ramp>::find_by_id(ElementID id) {
-    return begin();
-}
+//template<typename T>
+//typename NodeCollection<T>::iterator NodeCollection<T>::find_by_id(ElementID id) {
+//    return begin();
+//}
 
 
 std::size_t find_index(ElementID id, std::vector<ElementID>& map_work){

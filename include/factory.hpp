@@ -27,16 +27,47 @@ public:
 
     const_iterator cend()  { return collection_.cbegin(); }
 
+    const_iterator cend() const { return collection_.cbegin(); }
+
     iterator begin()  { return collection_.begin(); }
 
     iterator end()  { return collection_.end(); }
 
     iterator find_by_id(ElementID id);
+
     const_iterator find_by_id(ElementID id) const;
     void add(T&& node){collection_.push_back(std::move(node));};
     void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
 
 };
+
+
+template<> class NodeCollection<Ramp>{
+private:
+    std::list<Ramp> collection_;
+public:
+    using const_iterator = typename std::list<Ramp>::const_iterator;
+    using iterator = typename std::list<Ramp>::iterator;
+    const_iterator cbegin() { return collection_.cbegin(); }
+
+    const_iterator cbegin() const { return collection_.cbegin(); }
+
+    const_iterator cend()  { return collection_.cbegin(); }
+
+    const_iterator cend() const { return collection_.cbegin(); }
+
+    iterator begin()  { return collection_.begin(); }
+
+    iterator end()  { return collection_.end(); }
+
+    iterator find_by_id(ElementID id){return begin();};
+
+    const_iterator find_by_id(ElementID id) const{return cbegin();};
+    void add(Ramp&& node){collection_.push_back(std::move(node));};
+    void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
+
+};
+
 
 
 
