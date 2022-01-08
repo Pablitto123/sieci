@@ -35,10 +35,10 @@ public:
     void remove_receiver(IPackageReceiver* r);
     IPackageReceiver* choose_receiver();
     preferences_t& get_preferences(){ return pref_;}
-    const_iterator cbegin(){ return pref_.cbegin(); }
-    const_iterator cend(){ return pref_.cend(); }
-    preferences_t::iterator begin() const { return pref_.begin(); }
-    preferences_t::iterator end() const { return pref_.end(); }
+    const_iterator cbegin() const{ return pref_.cbegin(); }
+    const_iterator cend() const{ return pref_.cend(); }
+    preferences_t::iterator begin() { return pref_.begin(); }
+    preferences_t::iterator end() { return pref_.end(); }
 private:
     preferences_t pref_;
     ProbabilityGenerator pg_;

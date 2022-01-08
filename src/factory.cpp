@@ -14,7 +14,9 @@
 #include <types.hpp>
 
 bool Factory::is_consistent() {
-    for(auto it = ramp_cbegin(); it != ramp_cend(); it ++){
-        for(auto it2=it->receiver_preferences_.begin();it2 < it->receiver_preferences_.end();++it2)
-    }
+    for(auto it = worker_cbegin(); it != worker_cend(); it ++){
+        for(auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cend();it2++){
+            it2-> first->get_receiver_type()
+        }
+    };
 };
