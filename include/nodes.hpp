@@ -22,8 +22,8 @@ enum class ReceiverType{
 class IPackageReceiver{
 public:
     virtual void receive_package(Package&& p) = 0;
-    virtual ElementID get_id() = 0;
-    virtual ReceiverType get_receiver_type() = 0;
+    virtual ElementID get_id() const= 0;
+    virtual ReceiverType get_receiver_type() const = 0;
 };
 
 class ReceiverPreferences{
@@ -74,8 +74,8 @@ public:
     void do_work(Time t);
     [[nodiscard]] Time get_package_processing_start_time() const{return start_;};
     [[nodiscard]] TimeOffset get_processing_duration() const{return pd_;}
-    ElementID get_id() override{return id_;}
-    ReceiverType get_receiver_type() override{return ReceiverType::WORKER;}
+    ElementID get_id() const override{return id_;}
+    ReceiverType get_receiver_type()const override{return ReceiverType::WORKER;}
     void receive_package(Package &&p) override{q_->push(std::move(p));}
 private:
     std::optional<Package> buffer_processing_;
