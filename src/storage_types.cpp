@@ -9,13 +9,10 @@
 
 
 Package PackageQueue::pop() {
-
-
-
     if (!empty()) {
         Package temp(std::move(products_lst_.front()));
         products_lst_.pop_front();
-        return std::move(temp);
+        return temp;
 //        switch (queue_type_) {
 //            case PackageQueueType::FIFO:
 //                buff = &products_lst_.front();

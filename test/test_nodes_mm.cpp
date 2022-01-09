@@ -120,7 +120,6 @@ TEST(StorageTest, storage_test) {
     Worker worker(std::move(sender_worker), 12,12,std::make_unique<PackageQueue>(PackageQueueType::FIFO));
     ramp.receiver_preferences_.add_receiver(&worker);
     ramp.deliver_goods(0);
-    std::optional<Package>& tt(ramp.get_sending_buffer());
     worker.do_work(0);
     worker.do_work(1);
     ramp.send_package();
