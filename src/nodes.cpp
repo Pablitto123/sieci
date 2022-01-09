@@ -55,7 +55,7 @@ void PackageSender::send_package(){
 }
 
 void Ramp::deliver_goods(Time t){
-    if (t%di_) {
+    if (t%di_ == 0) {
         Package tt = Package();
         push_package(std::move(tt));
     }
