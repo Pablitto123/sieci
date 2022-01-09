@@ -134,5 +134,5 @@ TEST(StorageTest, storage_test) {
     worker.receiver_preferences_.add_receiver(&store);
     worker.send_package();
     EXPECT_FALSE(bool(worker.get_sending_buffer()));
-    /// z debugera widać że ok :)
+    /// z debugera widać że ok :)  (brak dostępu do ipackagestockpile)
 }
