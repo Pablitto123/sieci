@@ -116,13 +116,13 @@ bool Factory::is_consistent() {
 
         for(auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cend();it2++){
             if (it2->first->get_receiver_type() == ReceiverType::WORKER) {
-                workers_connection[index][it2->first->get_id()] = true;
+                workers_connection[it2->first->get_id()][index] = true;
             };
         };
     };
 
 
-    std::function<bool(std::vector<std::vector<bool>>&,std::size_t,std::vector<bool>)> dfs_algorithm_function = [](std::vector<std::vector<bool>>& graph,std::size_t index,std::vector<bool> access){
+    std::function<void(std::vector<std::vector<bool>>&,std::size_t,std::vector<bool>&,std::vector<bool>&)> dfs_algorithm_function = [](std::vector<std::vector<bool>>& graph,std::size_t index,std::vector<bool>& access, std::vector<bool>& visited){
         if(graph.empty()){
             return true;
         }
@@ -132,7 +132,7 @@ bool Factory::is_consistent() {
         }
         std::stack<int> stack;
         stack.push(index);
-        if(access[index]){return true;};
+
 
         int top = stack.top();
         while(!stack.empty()){
@@ -141,21 +141,30 @@ bool Factory::is_consistent() {
             is_checked[top] = true;
             for(auto i : graph[top]){
                 if(!is_checked[i]){
-                    if(access[i]){return true;};
                     stack.push(i);
                 }
             }
         }
-        return false;
-
+        for(std::size_t i =0 ;std::size(is_checked) < i; i++){
+            if(is_checked[i]){visited[i] = true;}
+        };
     };
 
-    for(auto it: ramp_id){
-        if(!dfs_algorithm_function(workers_connection, find_index(it,map_workers),storage_access)){return false;};
 
+    std::vector<bool> if_ever_visited(std::size(storage_access));
+    for(std::size_t i; i < std::size(storage_access);i++){
+        dfs_algorithm_function(workers_connection, i, storage_access, if_ever_visited);
+    };
+    for(std::size_t i; i < std::size(if_ever_visited);i++){
+      if(!if_ever_visited[i]){return false;}
+    //TODO: wyjątek
+    };
+
+    for(auto it = ramp_cbegin(); it != ramp_cend(); it ++) {
+        //for (auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cend(); it2++) {
+        if(std::distance(it->receiver_preferences_.cbegin(),it->receiver_preferences_.cend()) == 0){return  false;};
     };
     return true;
-
 }
 
 void Factory::do_deliveries(Time t)  {
@@ -170,10 +179,12 @@ void Factory::do_work(Time t) {
 }
 void Factory::do_package_passing() {
    for(auto it = ramps_.begin(); it != ramps_.end(); it ++) {
+
        it -> send_package() ;
    };
 
   for(auto it = workers_.begin(); it != workers_.end(); it ++){
+
       it -> send_package() ;
   };
 }
