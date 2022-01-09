@@ -11,8 +11,10 @@ TEST(QueueTest, FIFO) {
     PackageQueue que(PackageQueueType::FIFO);
     que.push(std::move(temp1));
     que.push(std::move(temp2));
-    EXPECT_EQ(que.pop().get_id(), temp1_ID);
-    EXPECT_EQ(que.pop().get_id(), temp2_ID);
+    auto temp1_1 = que.pop();
+    auto temp2_1 = que.pop();
+    EXPECT_EQ(temp1_1.get_id(), temp1_ID);
+    EXPECT_EQ(temp2_1.get_id(), temp2_ID);
 }
 TEST(QueueTest, LIFO) {
     Package temp1 = Package();

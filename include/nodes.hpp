@@ -39,6 +39,7 @@ public:
     const_iterator cend() const{ return pref_.cend(); }
     preferences_t::iterator begin() { return pref_.begin(); }
     preferences_t::iterator end() { return pref_.end(); }
+    ~ReceiverPreferences() = default;
 private:
     preferences_t pref_;
     ProbabilityGenerator pg_;

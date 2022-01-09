@@ -63,8 +63,10 @@ void Ramp::deliver_goods(Time t){
 
 void Worker::do_work(Time t) {
     if(start_ == 0 and !q_->empty()){
-        buffer_processing_ = q_->pop();
-        start_ = t;
+        if (!buffer_processing_){
+            buffer_processing_ = q_->pop();
+            start_ = t;
+        }
     }
     else if(t - start_ == pd_){
         push_package(std::move(*buffer_processing_));
