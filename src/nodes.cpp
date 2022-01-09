@@ -68,7 +68,7 @@ void Worker::do_work(Time t) {
             start_ = t;
         }
     }
-    else if(t - start_ == pd_){
+    if(t - start_ == pd_){
         push_package(std::move(*buffer_processing_));
         buffer_processing_.reset();
         start_ = 0;

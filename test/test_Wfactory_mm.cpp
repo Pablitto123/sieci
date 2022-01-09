@@ -90,6 +90,8 @@ TEST(WorkerTest, worker_test) {
     worker.do_work(1);
     EXPECT_FALSE(bool(worker.get_sending_buffer()));
     worker.do_work(3);
+    ramp.deliver_goods(0);
+    ramp.send_package();
     EXPECT_FALSE(bool(worker.get_sending_buffer()));
     worker.do_work(5);
     EXPECT_FALSE(bool(worker.get_sending_buffer()));
@@ -104,4 +106,6 @@ TEST(WorkerTest, worker_test) {
     PackageSender sender_worker4 = PackageSender(std::move(rp4));
     Worker worker4(std::move(sender_worker4), 12,12,std::make_unique<PackageQueue>(PackageQueueType::FIFO));
     worker.receiver_preferences_.add_receiver(&worker4);
+    worker.send_package();
+    EXPECT_FALSE(bool(worker.get_sending_buffer()));
 }
