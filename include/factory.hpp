@@ -89,6 +89,32 @@ public:
 
 };
 
+template<> class NodeCollection<Storehouse>{
+private:
+    std::list<Storehouse> collection_;
+public:
+    using const_iterator = typename std::list<Storehouse>::const_iterator;
+    using iterator = typename std::list<Storehouse>::iterator;
+    const_iterator cbegin() { return collection_.cbegin(); }
+
+    const_iterator cbegin() const { return collection_.cbegin(); }
+
+    const_iterator cend()  { return collection_.cbegin(); }
+
+    const_iterator cend() const { return collection_.cbegin(); }
+
+    iterator begin()  { return collection_.begin(); }
+
+    iterator end()  { return collection_.end(); }
+
+    iterator find_by_id(ElementID id){return begin();};
+    //    const_iterator find_by_id(ElementID id) const{return cbegin();};
+    //    const_iterator find_by_id(ElementID id) {return cbegin();};
+    void add(Storehouse&& node){collection_.push_back(std::move(node));};
+    void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
+
+};
+
 
 
 class Factory{
