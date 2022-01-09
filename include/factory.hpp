@@ -62,9 +62,9 @@ public:
 
     iterator end()  { return collection_.end(); }
 
-    iterator find_by_id(ElementID id){return begin();};
+    iterator find_by_id(ElementID id);
 
-    const_iterator find_by_id(ElementID id) const{return cbegin();};
+    const_iterator find_by_id(ElementID id) const;
     //void add(Ramp&& node){collection_.push_back(std::move(node));};
     void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
 
@@ -92,7 +92,6 @@ public:
     const_iterator find_by_id(ElementID id) const;
     void add(Worker&& node){collection_.push_back(std::move(node));};
     void remove_by_id(ElementID id){collection_.erase(begin());};
-
 };
 
 template<> class NodeCollection<Storehouse>{
@@ -113,9 +112,8 @@ public:
 
     iterator end()  { return collection_.end(); }
 
-    iterator find_by_id(ElementID id){return begin();};
-    const_iterator find_by_id(ElementID id) const{return cbegin();};
-    //const_iterator find_by_id(ElementID id) {return cbegin();};
+    iterator find_by_id(ElementID id);
+    const_iterator find_by_id(ElementID id) const;
     void add(Storehouse&& node){collection_.push_back(std::move(node));};
     void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
 

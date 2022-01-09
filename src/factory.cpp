@@ -20,6 +20,50 @@
 //    return begin();
 //}
 
+std::list<Ramp>::iterator NodeCollection<Ramp>::find_by_id(ElementID id) {
+    for(auto it = begin(); it!= end(); it++){
+        if(it->get_id() == id)return it;
+    }
+    return end();
+
+}
+
+std::list<Ramp>::const_iterator NodeCollection<Ramp>::find_by_id(ElementID id) const{
+    for(auto it = cbegin(); it!= cend(); it++){
+        if(it->get_id() == id)return it;
+    }
+    return cend();
+}
+
+std::list<Worker>::iterator NodeCollection<Worker>::find_by_id(ElementID id) {
+    for(auto it = begin(); it!= end(); it++){
+        if(it->get_id() == id)return it;
+    }
+    return end();
+
+}
+
+std::list<Worker>::const_iterator NodeCollection<Worker>::find_by_id(ElementID id) const{
+    for(auto it = cbegin(); it!= cend(); it++){
+        if(it->get_id() == id)return it;
+    }
+    return cend();
+}
+
+std::list<Storehouse>::iterator NodeCollection<Storehouse>::find_by_id(ElementID id) {
+    for(auto it = begin(); it!= end(); it++){
+        if(it->get_id() == id)return it;
+    }
+    return end();
+
+}
+
+std::list<Storehouse>::const_iterator NodeCollection<Storehouse>::find_by_id(ElementID id) const{
+    for(auto it = cbegin(); it!= cend(); it++){
+        if(it->get_id() == id)return it;
+    }
+    return cend();
+}
 
 std::size_t find_index(ElementID id, std::vector<ElementID>& map_work){
     std::size_t size;
@@ -29,7 +73,7 @@ std::size_t find_index(ElementID id, std::vector<ElementID>& map_work){
         }
     }
     return 0;
-};
+}
 
 bool Factory::is_consistent() {
 
@@ -112,18 +156,18 @@ bool Factory::is_consistent() {
     };
     return true;
 
-};
+}
 
 void Factory::do_deliveries(Time t)  {
     for(auto it = ramps_.begin(); it != ramps_.end(); it ++) {
         it -> deliver_goods(t);
     };
-};
+}
 void Factory::do_work(Time t) {
     for(auto it = workers_.begin(); it != workers_.end(); it ++){
       it -> do_work(t);
     };
-};
+}
 void Factory::do_package_passing() {
    for(auto it = ramps_.begin(); it != ramps_.end(); it ++) {
        it -> send_package() ;
@@ -132,5 +176,5 @@ void Factory::do_package_passing() {
   for(auto it = workers_.begin(); it != workers_.end(); it ++){
       it -> send_package() ;
   };
-};
+}
 

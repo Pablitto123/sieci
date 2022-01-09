@@ -62,7 +62,7 @@ public:
     Ramp(Ramp&&) = default;
     void deliver_goods(Time t);
     TimeOffset get_delivery_interval(){ return di_; };
-    ElementID get_id(){ return id_; };
+    ElementID get_id() const{ return id_; };
     ~Ramp() = default;
 private:
     ElementID id_;
@@ -87,10 +87,12 @@ private:
 
 };
 
-class Storehouse{
+class Storehouse: public IPackageReceiver{
 public:
     explicit Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d = std::make_unique<PackageQueue>(PackageQueueType::FIFO)):id_(id), d_(std::move(d)){}
-
+    ElementID get_id() const override{return id_;}
+    ReceiverType get_receiver_type()const override{return ReceiverType::STOREHOUSE;}
+    void receive_package(Package &&p) override{d_->push(std::move(p));}
 private:
     ElementID id_;
     std::unique_ptr<IPackageStockpile> d_;
