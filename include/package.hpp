@@ -21,7 +21,8 @@ public:
     //Package(Package&& package) :Id_(package.Id_){};
     Package& operator=(Package&&) noexcept {return *this;}
     ElementID get_id() const {return Id_;};
-    ~Package();
+    void destroy();//nie używamy po tym package bo się program wyjebie.(funkcja calluje destruktor)
+    ~Package() = default;
 
 
 private:
