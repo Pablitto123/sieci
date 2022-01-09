@@ -114,3 +114,23 @@ bool Factory::is_consistent() {
 
 };
 
+void Factory::do_deliveries(Time t)  {
+    for(auto it = ramps_.begin(); it != ramps_.end(); it ++) {
+        it -> deliver_goods(t);
+    };
+};
+void Factory::do_work(Time t) {
+    for(auto it = workers_.begin(); it != workers_.end(); it ++){
+      it -> do_work(t);
+    };
+};
+void Factory::do_package_passing() {
+   for(auto it = ramps_.begin(); it != ramps_.end(); it ++) {
+       it -> send_package() ;
+   };
+
+  for(auto it = workers_.begin(); it != workers_.end(); it ++){
+      it -> send_package() ;
+  };
+};
+
