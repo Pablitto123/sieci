@@ -65,7 +65,7 @@ public:
     iterator find_by_id(ElementID id);
 
     const_iterator find_by_id(ElementID id) const;
-    //void add(Ramp&& node){collection_.push_back(std::move(node));};
+    void add(Ramp&& node){collection_.push_back(std::move(node));};
     void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
 
 };
@@ -91,7 +91,7 @@ public:
     iterator find_by_id(ElementID id);
     const_iterator find_by_id(ElementID id) const;
     void add(Worker&& node){collection_.push_back(std::move(node));};
-    void remove_by_id(ElementID id){collection_.erase(begin());};
+    void remove_by_id(ElementID id){collection_.erase(find_by_id(id));};
 };
 
 template<> class NodeCollection<Storehouse>{
@@ -128,7 +128,7 @@ private:
     NodeCollection<Storehouse> Storehouses_;
 
 public:
-    //void add_ramp(Ramp&& ramp){ramps_.add(std::move(ramp));};
+    void add_ramp(Ramp&& ramp){ramps_.add(std::move(ramp));};
     void remove_ramp(ElementID id){ramps_.remove_by_id(id);};
     std::list<Ramp>::iterator find_ramp_by_id(ElementID id){return ramps_.find_by_id(id);};
     [[nodiscard]] std::list<Ramp>::const_iterator find_ramp_by_id(ElementID id) const{return ramps_.find_by_id(id);};

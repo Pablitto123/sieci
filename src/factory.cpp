@@ -66,10 +66,9 @@ std::list<Storehouse>::const_iterator NodeCollection<Storehouse>::find_by_id(Ele
 }
 
 std::size_t find_index(ElementID id, std::vector<ElementID>& map_work){
-    std::size_t size;
     for(std::size_t i=0;i < std::size(map_work);i++) {
         if (map_work[i] == id) {
-            return size;
+            return i;
         }
     }
     return 0;
@@ -122,10 +121,8 @@ bool Factory::is_consistent() {
     };
 
 
-    std::function<void(std::vector<std::vector<bool>>&,std::size_t,std::vector<bool>&,std::vector<bool>&)> dfs_algorithm_function = [](std::vector<std::vector<bool>>& graph,std::size_t index,std::vector<bool>& access, std::vector<bool>& visited){
-        if(graph.empty()){
-            return true;
-        }
+    std::function<void(std::vector<std::vector<bool>>&,std::size_t,std::vector<bool>&)> dfs_algorithm_function = [](std::vector<std::vector<bool>>& graph,std::size_t index, std::vector<bool>& visited){
+
         std::vector<bool> is_checked;
         for(auto i : graph){
             is_checked.push_back(false);
@@ -153,7 +150,7 @@ bool Factory::is_consistent() {
 
     std::vector<bool> if_ever_visited(std::size(storage_access));
     for(std::size_t i; i < std::size(storage_access);i++){
-        dfs_algorithm_function(workers_connection, i, storage_access, if_ever_visited);
+        dfs_algorithm_function(workers_connection, i, if_ever_visited);
     };
     for(std::size_t i; i < std::size(if_ever_visited);i++){
       if(!if_ever_visited[i]){return false;}
