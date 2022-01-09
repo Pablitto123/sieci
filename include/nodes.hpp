@@ -96,6 +96,8 @@ public:
     ElementID get_id() const override{return id_;}
     ReceiverType get_receiver_type()const override{return ReceiverType::STOREHOUSE;}
     void receive_package(Package &&p) override{d_->push(std::move(p));}
+    auto cbegin() const{return d_.get()->cbegin();}
+    auto cend() const{return d_.get()->cend();}
 private:
     ElementID id_;
     std::unique_ptr<IPackageStockpile> d_;

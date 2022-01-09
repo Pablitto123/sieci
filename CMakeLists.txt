@@ -27,7 +27,7 @@ set(SOURCES_FILES_TESTS
         test/test_package.cpp
         test/test_package_mm.cpp
         test/test_package_pm.cpp
-        test/test_Wfactory_mm.cpp
+        test/test_nodes_mm.cpp
         )
 
 # Dodaj konfigurację typu `Test`.

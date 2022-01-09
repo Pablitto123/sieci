@@ -109,3 +109,30 @@ TEST(WorkerTest, worker_test) {
     worker.send_package();
     EXPECT_FALSE(bool(worker.get_sending_buffer()));
 }
+
+TEST(StorageTest, storage_test) {
+    std::function<double()> f = [](){ return 1;};
+    ReceiverPreferences rp = ReceiverPreferences(f);
+    ReceiverPreferences rp2 = ReceiverPreferences(f);
+    PackageSender sender_ramp = PackageSender(std::move(rp));
+    PackageSender sender_worker = PackageSender(std::move(rp2));
+    Ramp ramp(std::move(sender_ramp), 12,12);
+    Worker worker(std::move(sender_worker), 12,12,std::make_unique<PackageQueue>(PackageQueueType::FIFO));
+    ramp.receiver_preferences_.add_receiver(&worker);
+    ramp.deliver_goods(0);
+    std::optional<Package>& tt(ramp.get_sending_buffer());
+    worker.do_work(0);
+    worker.do_work(1);
+    ramp.send_package();
+    worker.do_work(0);
+    worker.do_work(1);
+    worker.do_work(3);
+    ramp.deliver_goods(0);
+    worker.do_work(12);
+    /// Storehouse odbierający
+    Storehouse store(13,std::make_unique<PackageQueue>(PackageQueueType::FIFO));
+    worker.receiver_preferences_.add_receiver(&store);
+    worker.send_package();
+    EXPECT_FALSE(bool(worker.get_sending_buffer()));
+    /// z debugera widać że ok :)
+}

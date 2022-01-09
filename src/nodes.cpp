@@ -50,8 +50,10 @@ void PackageSender::push_package(Package&& p){
 }
 
 void PackageSender::send_package(){
-    receiver_preferences_.choose_receiver()->receive_package(std::move(*buffer_));/// <--- def metody potrzebóje
-    buffer_.reset();
+    if(bool(buffer_)){
+        receiver_preferences_.choose_receiver()->receive_package(std::move(*buffer_));/// <--- def metody potrzebóje
+        buffer_.reset();
+    }
 }
 
 void Ramp::deliver_goods(Time t){
@@ -62,11 +64,9 @@ void Ramp::deliver_goods(Time t){
 }
 
 void Worker::do_work(Time t) {
-    if(start_ == 0 and !q_->empty()){
-        if (!buffer_processing_){
-            buffer_processing_ = q_->pop();
-            start_ = t;
-        }
+    if(start_ == 0 and !q_->empty() and !buffer_processing_){
+        buffer_processing_ = q_->pop();
+        start_ = t;
     }
     if(t - start_ == pd_){
         push_package(std::move(*buffer_processing_));
