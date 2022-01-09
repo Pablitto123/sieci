@@ -14,17 +14,19 @@
 #include <set>
 
 class Package{
+public:
+    Package();
+    explicit Package(ElementID Id );
+    Package(Package&& package) = default;
+    //Package(Package&& package) :Id_(package.Id_){};
+    Package& operator=(Package&&) noexcept {return *this;}
+    ElementID get_id() const {return Id_;};
+    ~Package();
+
 private:
     static std::set<ElementID> assigned_IDs;
     static std::set<ElementID> freed_IDs;
     ElementID Id_;
-public:
-    Package();
-    explicit Package(ElementID Id );
-    Package(Package&& package) noexcept :Id_(package.Id_){};
-    Package& operator=(Package&&) noexcept {return *this;}
-    ElementID get_id() const {return Id_;};
-    ~Package();
 
 };
 #endif //SIECI_PACKAGE_HPP

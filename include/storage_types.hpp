@@ -12,6 +12,7 @@
 #include <iostream>
 #include <set>
 #include <list>
+#include <memory>
 #include "package.hpp"
 
 enum class PackageQueueType {
@@ -52,7 +53,7 @@ public:
     ~IPackageQueue() override = default;
 };
 
-class PackageQueue : public IPackageQueue {
+class PackageQueue : public IPackageQueue{
 public:
     explicit PackageQueue(PackageQueueType type) : queue_type_(type) {};
 
