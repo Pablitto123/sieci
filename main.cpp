@@ -11,7 +11,11 @@
 #include <list>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+Factory fct;
+PackageQueue q = PackageQueue(PackageQueueType::FIFO);
+std::unique_ptr<IPackageQueue> q_up = std::make_unique<PackageQueue>(q);
+
+Worker wr(PackageSender(), 0, 2, std::move(q_up));
+fct.add_worker(std::move(wr));
 
 }

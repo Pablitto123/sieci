@@ -53,6 +53,7 @@ void PackageSender::send_package(){
     receiver_preferences_.choose_receiver()->receive_package(std::move(*buffer_));/// <--- def metody potrzebóje
     buffer_.reset();
 }
+
 void Ramp::deliver_goods(Time t){
     if (t%di_) {
         Package tt = Package();
