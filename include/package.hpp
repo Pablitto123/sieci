@@ -23,7 +23,8 @@ public:
     Package& operator=(Package&&) noexcept {return *this;}
     ElementID get_id() const {return Id_;};
     void destroy();//nie używamy po tym package bo się program wyjebie.(funkcja calluje destruktor)
-    ~Package() = default;
+    void changeID(){ Id_ = SIZE_MAX;}
+    ~Package();
 
 
 private:

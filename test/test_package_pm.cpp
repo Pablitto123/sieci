@@ -3,7 +3,7 @@
 //
 #include "gtest/gtest.h"
 #include "storage_types.hpp"
-
+/*
 TEST(PackageTest, package_id_test_pm){
     Package::flush_ids();
     std::vector<Package*> pcgs;
@@ -15,27 +15,23 @@ TEST(PackageTest, package_id_test_pm){
     Package pcg;
     EXPECT_EQ(pcg.get_id(), 3);
 }
-
+*/
 
 TEST(PackageTest, package_id_eq_pm){
-    Package::flush_ids();
     Package p1 = Package(12);
     EXPECT_THROW(Package p2 = Package(12), std::invalid_argument);
 }
 
 TEST(QueueTest, queue_FIFO_test_pm){
-    Package::flush_ids();
     PackageQueue queue(PackageQueueType::FIFO);
     queue.push(Package(5));
     queue.push(Package(3));
     queue.push(Package(2));
     auto tp = queue.pop();
     EXPECT_EQ(tp.get_id(), 5);
-
 }
 
 TEST(QueueTest, queue_LIFO_test_pm){
-    Package::flush_ids();
     PackageQueue queue(PackageQueueType::LIFO);
     queue.push(Package(5));
     queue.push(Package(3));

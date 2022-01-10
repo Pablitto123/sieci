@@ -6,13 +6,21 @@
 #include <iostream>
 #include "storage_types.hpp"
 
-
-
+Package SZATAN(bool,Package&& move_){
+    return std::move(move_);
+}
+bool pop_front(std::list<Package>& lst){
+    lst.front().changeID();
+    lst.pop_front();
+    return true;
+}
+Package only_move(Package&& move_){
+    return std::move(move_);
+}
 Package PackageQueue::pop() {
     if (!empty()) {
-        Package temp(std::move(products_lst_.front()));
-        products_lst_.pop_front();
-        return temp;
+        return SZATAN(pop_front(products_lst_),only_move(std::move(products_lst_.front())));
+
 //        switch (queue_type_) {
 //            case PackageQueueType::FIFO:
 //                buff = &products_lst_.front();

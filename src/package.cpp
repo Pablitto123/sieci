@@ -39,3 +39,9 @@ void Package::destroy() {
     assigned_IDs.erase(Id_);
     delete this;
 }
+Package::~Package() {
+    if(Id_ != SIZE_MAX){
+        freed_IDs.insert(Id_);
+        assigned_IDs.erase(Id_);
+    }
+}

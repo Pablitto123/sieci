@@ -52,6 +52,7 @@ void PackageSender::push_package(Package&& p){
 void PackageSender::send_package(){
     if(bool(buffer_)){
         receiver_preferences_.choose_receiver()->receive_package(std::move(buffer_.value()));/// <--- def metody potrzebóje
+        buffer_->changeID();
         buffer_.reset();
     }
 }
@@ -59,7 +60,9 @@ void PackageSender::send_package(){
 void Ramp::deliver_goods(Time t){///TODO: problem z poprawnym ID produktów
     if (t%di_ == 0) {
         if (!buffer_){
-            push_package(Package());
+            Package tt = Package();
+            push_package(std::move(tt));
+            tt.changeID();
         }
     }
 }
@@ -72,6 +75,7 @@ void Worker::do_work(Time t) {
     if(t - start_ == pd_ and bool(buffer_processing_)){
 
         push_package(std::move(buffer_processing_.value()));
+        buffer_processing_->changeID();
         buffer_processing_.reset();
         start_ = 0;
     }

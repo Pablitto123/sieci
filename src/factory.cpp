@@ -121,11 +121,20 @@ bool Factory::is_consistent() {
         };
 
     };
+    bool is_any_not_itself = false;
     for(auto it = worker_cbegin(); it != worker_cend(); it ++){
         if(it -> receiver_preferences_.empty()) {
             throw std::invalid_argument("Worker without reciver");
         };
-
+        is_any_not_itself = false;
+        for(auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cbegin(); it2 ++){
+            if(it2->first->get_id()!=it->get_id()){
+                is_any_not_itself = true;
+            }
+        }
+        if(!is_any_not_itself){
+            throw std::invalid_argument("Worker without other reciver than itself");
+        }
 
     }
 
@@ -160,10 +169,10 @@ bool Factory::is_consistent() {
 
 
     std::vector<bool> if_ever_visited(std::size(storage_access));
-    for(std::size_t i; i < std::size(storage_access);i++){
+    for(std::size_t i = 0; i < std::size(storage_access);i++){
         dfs_algorithm_function(workers_connection, i, if_ever_visited);
     };
-    for(std::size_t i; i < std::size(if_ever_visited);i++){
+    for(std::size_t i = 0; i < std::size(if_ever_visited);i++){
         if(!if_ever_visited[i]){throw std::invalid_argument("Inconsistent network");}
     //TODO: wyjątek
     };
