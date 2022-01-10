@@ -15,11 +15,6 @@
 #include <list>
 #include <types.hpp>
 
-//template<typename T>
-//typename NodeCollection<T>::iterator NodeCollection<T>::find_by_id(ElementID id) {
-//    return begin();
-//}
-
 std::list<Ramp>::iterator NodeCollection<Ramp>::find_by_id(ElementID id) {
     for(auto it = begin(); it!= end(); it++){
         if(it->get_id() == id)return it;
@@ -120,6 +115,22 @@ bool Factory::is_consistent() {
         };
     };
 
+    for(auto it = ramp_cbegin(); it != ramp_cend(); it ++){
+        if(it -> receiver_preferences_.empty()) {
+            throw std::invalid_argument("Ramp without reciver");
+        };
+
+    };
+    for(auto it = worker_cbegin(); it != worker_cend(); it ++){
+        if(it -> receiver_preferences_.empty()) {
+            throw std::invalid_argument("Worker without reciver");
+        };
+
+
+    }
+
+
+
 
     std::function<void(std::vector<std::vector<bool>>&,std::size_t,std::vector<bool>&)> dfs_algorithm_function = [](std::vector<std::vector<bool>>& graph,std::size_t index, std::vector<bool>& visited){
 
@@ -153,12 +164,11 @@ bool Factory::is_consistent() {
         dfs_algorithm_function(workers_connection, i, if_ever_visited);
     };
     for(std::size_t i; i < std::size(if_ever_visited);i++){
-      if(!if_ever_visited[i]){return false;}
+        if(!if_ever_visited[i]){throw std::invalid_argument("Inconsistent network");}
     //TODO: wyjątek
     };
 
     for(auto it = ramp_cbegin(); it != ramp_cend(); it ++) {
-        //for (auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cend(); it2++) {
         if(std::distance(it->receiver_preferences_.cbegin(),it->receiver_preferences_.cend()) == 0){return  false;};
     };
     return true;

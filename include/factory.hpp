@@ -159,10 +159,10 @@ public:
     std::list<Storehouse>::const_iterator Storehouse_cbegin() { return Storehouses_.cbegin(); };
     std::list<Storehouse>::const_iterator Storehouse_cend() { return Storehouses_.cend(); };
 
-      bool is_consistent();
-      void do_deliveries(Time t);
-      void do_package_passing();
-      void do_work(Time t);
+    bool is_consistent();
+    void do_deliveries(Time t);
+    void do_package_passing();
+    void do_work(Time t);
 
 };
 
