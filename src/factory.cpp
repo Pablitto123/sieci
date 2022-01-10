@@ -70,7 +70,7 @@ std::size_t find_index(ElementID id, std::vector<ElementID>& map_work){
 }
 enum class kolor_wezla{NIEODWIEDZONY, ODWIEDZONY, ZWERYFIKOWANY};
 
-bool czy_nadawca_posiada_osiągalny_magazyn(PackageSender* nadawca,std::map<PackageSender*, kolor_wezla>& kolor) {
+bool czy_nadawca_posiada_osiagalny_magazyn(PackageSender* nadawca,std::map<PackageSender*, kolor_wezla>& kolor) {
     if(kolor[nadawca] == kolor_wezla::ZWERYFIKOWANY){
         return true;
     }
@@ -92,7 +92,7 @@ bool czy_nadawca_posiada_osiągalny_magazyn(PackageSender* nadawca,std::map<Pack
             }
             czy_nadawca_ma_choc_jednego_odbiorce_innego_niz_siebie_samego = true;
             if(kolor[sendrecv_ptr]==kolor_wezla::NIEODWIEDZONY){
-                czy_nadawca_posiada_osiągalny_magazyn(sendrecv_ptr,kolor);
+                czy_nadawca_posiada_osiagalny_magazyn(sendrecv_ptr,kolor);
             }
         }
 
@@ -116,7 +116,7 @@ bool Factory::is_consistent() {
     }
     try{
         for(auto it = ramps_.begin(); it != ramps_.end(); it ++){
-            czy_nadawca_posiada_osiągalny_magazyn(&*it,kolor);
+            czy_nadawca_posiada_osiagalny_magazyn(&*it,kolor);
         }
     }catch(...){
         return false;
