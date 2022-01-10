@@ -34,6 +34,7 @@ Package PackageQueue::pop() {
     }
     //ElementID i = products_lst_.front().get_id();
     //Destructor j(i);
+    /// nie działa ponieważ destruktor ostatniego elementu wykonuje się jako ostatni (i tak usunie wpis)
     return tan(pop_front(products_lst_),only_move(std::move(products_lst_.front())));
 
 //        switch (queue_type_) {

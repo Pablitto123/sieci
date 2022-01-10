@@ -129,7 +129,7 @@ private:
 
 public:
     void add_ramp(Ramp&& ramp){ramps_.add(std::move(ramp));};
-    void remove_ramp(ElementID id){ramps_.remove_by_id(id);};
+    void remove_ramp(ElementID id){ramps_.remove_by_id(id);};/// ok brak nadawcow
     std::list<Ramp>::iterator find_ramp_by_id(ElementID id){return ramps_.find_by_id(id);};
     [[nodiscard]] std::list<Ramp>::const_iterator find_ramp_by_id(ElementID id) const{return ramps_.find_by_id(id);};
     [[nodiscard]] std::list<Ramp>::const_iterator ramp_cbegin() const { return ramps_.cbegin(); };
@@ -140,7 +140,8 @@ public:
 
 
     void add_worker(Worker&& worker){workers_.add(std::move(worker));};
-    void remove_worker(ElementID id){workers_.remove_by_id(id);};
+    //void remove_worker(ElementID id){workers_.remove_by_id(id);};
+    void remove_worker(ElementID id);
     std::list<Worker>::iterator find_worker_by_id(ElementID id){return workers_.find_by_id(id);};
     [[nodiscard]] std::list<Worker>::const_iterator find_worker_by_id(ElementID id) const{return workers_.find_by_id(id);};
     [[nodiscard]] std::list<Worker>::const_iterator worker_cbegin() const { return workers_.cbegin(); };
