@@ -128,6 +128,7 @@ private:
     NodeCollection<Storehouse> Storehouses_;
 
 public:
+    Factory()=default;
     void add_ramp(Ramp&& ramp){ramps_.add(std::move(ramp));};
     void remove_ramp(ElementID id){ramps_.remove_by_id(id);};/// ok brak nadawcow
     std::list<Ramp>::iterator find_ramp_by_id(ElementID id){return ramps_.find_by_id(id);};
