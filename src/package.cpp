@@ -32,16 +32,19 @@ Package::Package(ElementID Id) {
     freed_IDs.erase(Id_);
     assigned_IDs.insert(Id_);
 }
-void Package::Add_Id(ElementID idd){
-    freed_IDs.erase(idd);
-    assigned_IDs.insert(idd);
-}
 
+//void Package::Add_Id(ElementID idd){
+//    freed_IDs.erase(idd);
+//    assigned_IDs.insert(idd);
+//}
+
+/*
 void Package::destroy() {
     freed_IDs.insert(Id_);
     assigned_IDs.erase(Id_);
     delete this;
 }
+*/
 Package::~Package() {
     if(Id_ != SIZE_MAX){
         freed_IDs.insert(Id_);

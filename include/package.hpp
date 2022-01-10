@@ -22,10 +22,10 @@ public:
     //Package(Package&& package) :Id_(package.Id_){};
     Package& operator=(Package&&) noexcept {return *this;}
     ElementID get_id() const {return Id_;};
-    void destroy();//nie używamy po tym package bo się program wyjebie.(funkcja calluje destruktor)
-    void changeID(){ Id_ = SIZE_MAX;}
+    //void destroy();//nie używamy po tym package bo się program wyjebie.(funkcja calluje destruktor)
+    //void changeID(){ Id_ = SIZE_MAX;}
     ~Package();
-    static void Add_Id(ElementID idd);
+    //static void Add_Id(ElementID idd);
 
 private:
     static std::set<ElementID> assigned_IDs;
