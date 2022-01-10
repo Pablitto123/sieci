@@ -5,21 +5,36 @@
 #include <algorithm>
 #include <iostream>
 #include "storage_types.hpp"
-
-Package SZATAN(bool,Package&& move_){
+//class Destructor{
+//public:
+//    Destructor(ElementID i): i_(i){};
+//    ElementID i_;
+//    ~Destructor(){
+//        Package i(SIZE_MAX - 1);
+//        i.Add_Id(i_);
+//        int t = 0;
+//        t++;
+//    }
+//};
+Package tan(bool,Package&& move_){
     return std::move(move_);
 }
 bool pop_front(std::list<Package>& lst){
     lst.front().changeID();
     lst.pop_front();
+
     return true;
 }
 Package only_move(Package&& move_){
     return std::move(move_);
 }
 Package PackageQueue::pop() {
-    if (!empty()) {
-        return SZATAN(pop_front(products_lst_),only_move(std::move(products_lst_.front())));
+    if (empty()) {
+        throw std::invalid_argument("queue is empty");
+    }
+    //ElementID i = products_lst_.front().get_id();
+    //Destructor j(i);
+    return tan(pop_front(products_lst_),only_move(std::move(products_lst_.front())));
 
 //        switch (queue_type_) {
 //            case PackageQueueType::FIFO:
@@ -39,20 +54,16 @@ Package PackageQueue::pop() {
 //                throw std::invalid_argument("no such a queue type");
 //        }
 //        //return std::move(*buff);
-    } else {
-        //TODO: throw an exception
-        throw std::invalid_argument("queue is empty");
-    }
 
 }
 
 void PackageQueue::push(Package &&pack) {
     switch (queue_type_) {
         case PackageQueueType::FIFO:
-            products_lst_.emplace_back(std::move(pack));
+            products_lst_.push_back(std::move(pack));
             break;
         case PackageQueueType::LIFO:
-            products_lst_.emplace_front(std::move(pack));
+            products_lst_.push_front(std::move(pack));
             break;
         default:
             break;

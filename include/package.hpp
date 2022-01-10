@@ -25,7 +25,7 @@ public:
     void destroy();//nie używamy po tym package bo się program wyjebie.(funkcja calluje destruktor)
     void changeID(){ Id_ = SIZE_MAX;}
     ~Package();
-
+    static void Add_Id(ElementID idd);
 
 private:
     static std::set<ElementID> assigned_IDs;
