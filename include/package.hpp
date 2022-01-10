@@ -15,6 +15,7 @@
 
 class Package{
 public:
+    static void flush_ids(){ assigned_IDs = std::set<ElementID>();freed_IDs = std::set<ElementID>();};
     Package();
     explicit Package(ElementID Id );
     Package(Package&& package) = default;
