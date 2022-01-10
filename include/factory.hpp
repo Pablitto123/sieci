@@ -152,7 +152,7 @@ public:
 
 
     void add_Storehouse(Storehouse&& storage){Storehouses_.add(std::move(storage));};
-    void remove_Storehouse(ElementID id){Storehouses_.remove_by_id(id);};
+    void remove_Storehouse(ElementID id);
     std::list<Storehouse>::iterator find_Storehouse_by_id(ElementID id){return Storehouses_.find_by_id(id);};
     [[nodiscard]] std::list<Storehouse>::const_iterator find_Storehouse_by_id(ElementID id) const{return Storehouses_.find_by_id(id);};
     [[nodiscard]] std::list<Storehouse>::const_iterator Storehouse_cbegin() const { return Storehouses_.cbegin(); };

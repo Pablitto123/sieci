@@ -219,3 +219,16 @@ void Factory::remove_worker(ElementID id) {
     }
 
 }
+void Factory::remove_Storehouse(ElementID id){
+    if(Storehouses_.find_by_id(id) != Storehouses_.end()){
+        Storehouse* usuwany = &*Storehouses_.find_by_id(id);
+        for(auto it = workers_.begin(); it != workers_.end(); it ++){
+            it->receiver_preferences_.remove_receiver(usuwany);
+        };
+        for(auto it = ramps_.begin(); it != ramps_.end(); it ++){
+            it->receiver_preferences_.remove_receiver(usuwany);
+        };
+
+    }
+
+}
