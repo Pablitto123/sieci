@@ -10,16 +10,20 @@ Package PackageQueue::pop() {
     Package buff;
     if (!empty()) {
         switch (queue_type_) {
-            case PackageQueueType::LIFO:
+            case PackageQueueType::LIFO:{
                 buff = std::move(products_lst_.front());
                 products_lst_.pop_front();
                 break;
-                case PackageQueueType::FIFO:
-                    buff = std::move(products_lst_.front());
-                    products_lst_.pop_front();
-                    break;
-                    default:
-                        throw std::invalid_argument("no such a queue type");
+            }
+
+            case PackageQueueType::FIFO:{
+                buff = std::move(products_lst_.front());
+                products_lst_.pop_front();
+                break;
+            }
+
+            default:
+                throw std::invalid_argument("no such a queue type");
         }
         return buff;
     } else {
