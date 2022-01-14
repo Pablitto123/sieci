@@ -30,6 +30,10 @@ public:
 
     virtual const_iterator cend() = 0;
 
+    virtual const_iterator cbegin() const = 0;
+
+    virtual const_iterator cend() const = 0;
+
     virtual iterator begin() = 0;
 
     virtual iterator end() = 0;
@@ -60,6 +64,10 @@ public:
     const_iterator cbegin() override { return products_lst_.cbegin(); }
 
     const_iterator cend() override { return products_lst_.cbegin(); }
+
+    const_iterator cbegin() const override { return products_lst_.cbegin(); }
+
+    const_iterator cend() const override { return products_lst_.cbegin(); }
 
     iterator begin() override { return products_lst_.begin(); }
 

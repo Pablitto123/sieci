@@ -21,9 +21,14 @@ enum class ReceiverType{
 
 class IPackageReceiver{
 public:
-    virtual void receive_package(Package&& p) = 0;
+    virtual void receive_package(Package&& p) =0;
     virtual ElementID get_id() const= 0;
     virtual ReceiverType get_receiver_type() const = 0;
+    virtual IPackageStockpile::const_iterator cbegin() const = 0;
+    virtual IPackageStockpile::const_iterator cend() const = 0;
+    virtual IPackageStockpile::const_iterator begin() = 0;
+    virtual IPackageStockpile::const_iterator end() = 0;
+
 };
 
 class ReceiverPreferences{
@@ -102,8 +107,8 @@ public:
     ElementID get_id() const override{return id_;}
     ReceiverType get_receiver_type()const override{return ReceiverType::STOREHOUSE;}
     void receive_package(Package &&p) override{d_->push(std::move(p));}
-    auto cbegin() const{return d_.get()->cbegin();}
-    auto cend() const{return d_.get()->cend();}
+    auto cbegin() const override {return d_.get()->cbegin();}
+    auto cend() const override{return d_.get()->cend();}
 private:
     ElementID id_;
     std::unique_ptr<IPackageStockpile> d_;
