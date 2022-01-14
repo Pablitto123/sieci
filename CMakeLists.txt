@@ -30,7 +30,7 @@ set(SOURCES_FILES_TESTS
         #test/test_simulate.cpp
         test/test_storage_types.cpp
         test/test_package.cpp
-        )
+        include/reports.hpp include/simulation.hpp src/simulation.cpp src/reports.cpp)
 
 # Dodaj konfigurację typu `Test`.
 add_executable(my_project_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)
