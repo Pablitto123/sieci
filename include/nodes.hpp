@@ -63,6 +63,8 @@ protected:
 class Ramp: public PackageSender {
 public:
     Ramp(PackageSender &&sender, ElementID id, TimeOffset di) : PackageSender(std::move(sender)), id_(id), di_(di) {};
+    Ramp(ElementID id, TimeOffset di) : PackageSender(), id_(id), di_(di) {};
+
     Ramp(Ramp&&) = default;
     void deliver_goods(Time t);
     TimeOffset get_delivery_interval(){ return di_; };
@@ -76,6 +78,8 @@ private:
 class Worker: public PackageSender, public IPackageReceiver{
 public:
     Worker(PackageSender &&sender, ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(std::move(sender)), id_(id), pd_(pd), q_(std::move(q)){}; //??
+    Worker( ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(), id_(id), pd_(pd), q_(std::move(q)){}; //??
+
     void do_work(Time t);
     Worker(Worker&&) =default;
     [[nodiscard]] Time get_package_processing_start_time() const{return start_;};
