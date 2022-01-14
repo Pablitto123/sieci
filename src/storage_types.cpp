@@ -60,10 +60,10 @@ Package PackageQueue::pop() {
 
 void PackageQueue::push(Package &&pack) {
     switch (queue_type_) {
-        case PackageQueueType::FIFO:
+        case PackageQueueType::LIFO:
             products_lst_.push_back(std::move(pack));
             break;
-        case PackageQueueType::LIFO:
+            case PackageQueueType::FIFO:
             products_lst_.push_front(std::move(pack));
             break;
         default:

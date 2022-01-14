@@ -23,7 +23,7 @@ void ReceiverPreferences::add_receiver( IPackageReceiver* r){
     for(auto i : pref_){
         sum += i.second;
     }
-    for(auto i = begin(); i!=end(); ++i){
+    for(auto i = pref_.begin(); i!=pref_.end(); ++i){
         i->second = (i->second)/sum;
     }
 }
@@ -34,7 +34,7 @@ void ReceiverPreferences::remove_receiver(IPackageReceiver* r){
     for(auto i : pref_){
         sum += i.second;
     }
-    for(auto i = begin(); i!=end(); ++i){
+    for(auto i = pref_.begin(); i!=pref_.end(); ++i){
         i->second = (i->second)/sum;
     }
 }
