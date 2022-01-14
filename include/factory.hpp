@@ -165,7 +165,9 @@ public:
     void do_deliveries(Time t);
     void do_package_passing();
     void do_work(Time t);
-
+private:
+    template<typename T>
+    void remove_receiver(NodeCollection<T>& lst,ElementID id);
 };
 
 

@@ -311,3 +311,16 @@ void Factory::remove_Storehouse(ElementID id){
     }
 
 }
+template<typename T>
+void Factory::remove_receiver(NodeCollection<T>& lst,ElementID id){
+    if(lst.find_by_id(id) != lst.end()){
+        T* usuwany = &*lst.find_by_id(id);
+        for(auto it = workers_.begin(); it != workers_.end(); it ++){
+            it->receiver_preferences_.remove_receiver(usuwany);
+        };
+        for(auto it = ramps_.begin(); it != ramps_.end(); it ++){
+            it->receiver_preferences_.remove_receiver(usuwany);
+        };
+
+    }
+}
