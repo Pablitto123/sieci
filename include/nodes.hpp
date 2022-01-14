@@ -77,7 +77,9 @@ private:
 
 class Worker: public PackageSender, public IPackageReceiver{
 public:
-    Worker(ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(), id_(id), pd_(pd), q_(std::move(q)){}; //??
+    Worker(PackageSender &&sender, ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(std::move(sender)), id_(id), pd_(pd), q_(std::move(q)){}; //??
+    Worker( ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(), id_(id), pd_(pd), q_(std::move(q)){}; //??
+
     void do_work(Time t);
     Worker(Worker&&) =default;
     [[nodiscard]] Time get_package_processing_start_time() const{return start_;};
