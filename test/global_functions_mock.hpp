@@ -21,7 +21,7 @@ public:
     MOCK_METHOD0(generate_canonical, double());
 };
 
-
+//#define WITH_PROBABILITY_GENERATOR
 // ----
 
 class GlobalFunctionsFixture : public ::testing::Test {

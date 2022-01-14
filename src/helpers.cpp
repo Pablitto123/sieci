@@ -15,3 +15,4 @@ double default_probability_generator() {
 }
 
 std::function<double()> probability_generator = default_probability_generator;
+

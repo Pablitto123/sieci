@@ -39,7 +39,7 @@ class ReceiverPreferences{
 public:
     using preferences_t = std::map<IPackageReceiver*, double>;
     using const_iterator = preferences_t::const_iterator;
-    ReceiverPreferences(ProbabilityGenerator pg = default_probability_generator): pg_(pg){};
+    ReceiverPreferences(ProbabilityGenerator pg = probability_generator): pg_(pg){};
     void add_receiver( IPackageReceiver* r);
     void remove_receiver(IPackageReceiver* r);
     IPackageReceiver* choose_receiver();
@@ -64,7 +64,7 @@ private:
 class PackageSender{
 public:
     explicit PackageSender(ReceiverPreferences&& rp): receiver_preferences_(std::move(rp)){}
-    PackageSender():receiver_preferences_(default_probability_generator){}
+    PackageSender():receiver_preferences_(){}
     PackageSender(PackageSender&& sender) = default;
     void send_package();
     std::optional<Package>& get_sending_buffer();
@@ -87,6 +87,7 @@ public:
     ElementID get_id() { return id_; };
     ~Ramp() = default;
 private:
+    unsigned long long start_time_ = UINTMAX_MAX;
     ElementID id_;
     TimeOffset di_;
 };
@@ -106,7 +107,7 @@ public:
     [[nodiscard]] Time get_package_processing_start_time() const{return start_;};
     [[nodiscard]] TimeOffset get_processing_duration() const{return pd_;}
     ElementID get_id() const override{return id_;}
-    ReceiverType get_receiver_type() const{return ReceiverType::WORKER;}
+    ReceiverType get_receiver_type() const override{return ReceiverType::WORKER;}
     void receive_package(Package &&p) override{q_->push(std::move(p));}
 
 private:
@@ -123,7 +124,7 @@ public:
     explicit Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d = std::make_unique<PackageQueue>(PackageQueueType::FIFO)):id_(id), d_(std::move(d)){}
     ElementID get_id() const override{return id_;}
 
-    ReceiverType get_receiver_type() const {return ReceiverType::STOREHOUSE;}
+    ReceiverType get_receiver_type() const override {return ReceiverType::STOREHOUSE;}
     ReceiverType get_receiver_type() {return ReceiverType::STOREHOUSE;}
     void receive_package(Package &&p) override{d_->push(std::move(p));}
     IPackageStockpile::const_iterator cbegin() const override {return d_.get()->cbegin();};

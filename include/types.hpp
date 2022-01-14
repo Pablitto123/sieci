@@ -12,5 +12,8 @@
 #include <set>
 
 using ElementID = unsigned long long;
+using ProbabilityGenerator = std::function<double()>;
+using Time = unsigned long int;
+using TimeOffset = unsigned long int;
 
 #endif //STORAGE_HPP_TYPES_HPP
