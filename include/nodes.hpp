@@ -63,6 +63,8 @@ protected:
 class Ramp: public PackageSender {
 public:
     Ramp(PackageSender &&sender, ElementID id, TimeOffset di) : PackageSender(std::move(sender)), id_(id), di_(di) {};
+    Ramp(ElementID id, TimeOffset di) : PackageSender(), id_(id), di_(di) {};
+
     Ramp(Ramp&&) = default;
     void deliver_goods(Time t);
     TimeOffset get_delivery_interval(){ return di_; };
