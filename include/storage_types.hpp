@@ -25,14 +25,15 @@ public:
     using iterator = std::list<Package>::const_iterator;
 
     virtual void push(Package &&pack) = 0;
+    virtual const_iterator cbegin() const = 0;
+
+    virtual const_iterator cend() const = 0;
 
     virtual const_iterator cbegin() = 0;
 
     virtual const_iterator cend() = 0;
 
-    virtual const_iterator cbegin() const = 0;
 
-    virtual const_iterator cend() const = 0;
 
     virtual iterator begin() = 0;
 
@@ -61,13 +62,13 @@ class PackageQueue : public IPackageQueue{
 public:
     explicit PackageQueue(PackageQueueType type) : queue_type_(type) {};
 
-    const_iterator cbegin() override { return products_lst_.cbegin(); }
-
-    const_iterator cend() override { return products_lst_.cbegin(); }
-
     const_iterator cbegin() const override { return products_lst_.cbegin(); }
 
     const_iterator cend() const override { return products_lst_.cbegin(); }
+
+    const_iterator cbegin() override { return products_lst_.cbegin(); }
+
+    const_iterator cend() override { return products_lst_.cbegin(); }
 
     iterator begin() override { return products_lst_.begin(); }
 

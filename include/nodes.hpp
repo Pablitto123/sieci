@@ -84,7 +84,10 @@ class Worker: public PackageSender, public IPackageReceiver{
 public:
     Worker(PackageSender &&sender, ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(std::move(sender)), id_(id), pd_(pd), q_(std::move(q)){}; //??
     Worker( ElementID id, TimeOffset pd, std::unique_ptr<IPackageQueue> q):PackageSender(), id_(id), pd_(pd), q_(std::move(q)){}; //??
-
+    IPackageStockpile::const_iterator cbegin() const override {return q_.get()->cbegin();};
+    IPackageStockpile::const_iterator cend() const override {return q_.get()->cbegin();};
+    IPackageStockpile::const_iterator begin() override {return q_.get()->cbegin();};
+    IPackageStockpile::const_iterator end() override {return q_.get()->cbegin();};
     void do_work(Time t);
     Worker(Worker&&) =default;
     [[nodiscard]] Time get_package_processing_start_time() const{return start_;};
@@ -92,6 +95,7 @@ public:
     ElementID get_id() const override{return id_;}
     ReceiverType get_receiver_type()const override{return ReceiverType::WORKER;}
     void receive_package(Package &&p) override{q_->push(std::move(p));}
+
 private:
     std::optional<Package> buffer_processing_;
     ElementID id_;
@@ -107,8 +111,10 @@ public:
     ElementID get_id() const override{return id_;}
     ReceiverType get_receiver_type()const override{return ReceiverType::STOREHOUSE;}
     void receive_package(Package &&p) override{d_->push(std::move(p));}
-    auto cbegin() const override {return d_.get()->cbegin();}
-    auto cend() const override{return d_.get()->cend();}
+    IPackageStockpile::const_iterator cbegin() const override {return d_.get()->cbegin();};
+    IPackageStockpile::const_iterator cend() const override {return d_.get()->cbegin();};
+    IPackageStockpile::const_iterator begin() override {return d_.get()->cbegin();};
+    IPackageStockpile::const_iterator end() override {return d_.get()->cbegin();};
 private:
     ElementID id_;
     std::unique_ptr<IPackageStockpile> d_;
