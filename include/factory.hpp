@@ -152,14 +152,14 @@ public:
 
 
 
-    void add_Storehouse(Storehouse&& storage){Storehouses_.add(std::move(storage));};
-    void remove_Storehouse(ElementID id);
-    std::list<Storehouse>::iterator find_Storehouse_by_id(ElementID id){return Storehouses_.find_by_id(id);};
-    [[nodiscard]] std::list<Storehouse>::const_iterator find_Storehouse_by_id(ElementID id) const{return Storehouses_.find_by_id(id);};
-    [[nodiscard]] std::list<Storehouse>::const_iterator Storehouse_cbegin() const { return Storehouses_.cbegin(); };
-    [[nodiscard]] std::list<Storehouse>::const_iterator Storehouse_cend() const { return Storehouses_.cend(); };
-    std::list<Storehouse>::const_iterator Storehouse_cbegin() { return Storehouses_.cbegin(); };
-    std::list<Storehouse>::const_iterator Storehouse_cend() { return Storehouses_.cend(); };
+    void add_storehouse(Storehouse&& storage){Storehouses_.add(std::move(storage));};
+    void remove_storehouse(ElementID id);
+    std::list<Storehouse>::iterator find_storehouse_by_id(ElementID id){return Storehouses_.find_by_id(id);};
+    [[nodiscard]] std::list<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const{return Storehouses_.find_by_id(id);};
+    [[nodiscard]] std::list<Storehouse>::const_iterator storehouse_cbegin() const { return Storehouses_.cbegin(); };
+    [[nodiscard]] std::list<Storehouse>::const_iterator storehouse_cend() const { return Storehouses_.cend(); };
+    std::list<Storehouse>::const_iterator storehouse_cbegin() { return Storehouses_.cbegin(); };
+    std::list<Storehouse>::const_iterator storehouse_cend() { return Storehouses_.cend(); };
 
     bool is_consistent();
     void do_deliveries(Time t);
