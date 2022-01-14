@@ -19,12 +19,9 @@ IPackageReceiver* ReceiverPreferences::choose_receiver(){
 void ReceiverPreferences::add_receiver( IPackageReceiver* r){
     pref_.insert(std::pair<IPackageReceiver*, double>(r,1)); /// kaj prawdopodobieństwo? >:/
     /// zapewnienie niezmiennika
-    double sum = 0;
-    for(auto i : pref_){
-        sum += i.second;
-    }
+
     for(auto i = begin(); i!=end(); ++i){
-        i->second = (i->second)/sum;
+        i->second = 1/(double)std::size(pref_);
     }
 }
 void ReceiverPreferences::remove_receiver(IPackageReceiver* r){
@@ -72,10 +69,9 @@ void Worker::do_work(Time t) {
         buffer_processing_ = q_->pop();
         start_ = t;
     }
-    if(t - start_ == pd_ and bool(buffer_processing_)){
+    if((t+1) - start_ == pd_ and bool(buffer_processing_)){
 
         push_package(std::move(buffer_processing_.value()));
-//        buffer_processing_->changeID();
         buffer_processing_.reset();
         start_ = 0;
     }
