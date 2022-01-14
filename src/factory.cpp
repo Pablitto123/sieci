@@ -122,144 +122,6 @@ bool Factory::is_consistent() {
         return false;
     }
     return true;
-
-
-//    std::vector<bool> storage_access;
-//    std::vector<ElementID> ramp_id;
-//    std::vector<ElementID> map_workers;
-//
-//    for(auto it = worker_cbegin(); it != worker_cend(); it ++){
-//        map_workers.push_back(it->get_id());
-//
-//    };
-//    std::vector<std::vector<bool>> workers_connection;
-//
-//    for(auto it = ramp_cbegin(); it != ramp_cend(); it ++){
-//        for(auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cend();it2++) {
-//            if (it2->first->get_receiver_type() == ReceiverType::WORKER) {
-//                ramp_id.push_back(it2->first->get_id());
-//            };
-//        };
-//    };
-//    bool pom = false;
-//    for(auto it = workers_.begin(); it != workers_.end(); it ++){
-//        for(auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cend();it2++) {
-//            if(it2->first->get_receiver_type() == ReceiverType::STOREHOUSE){
-//                pom = true;
-//            };
-//        };
-//        storage_access.push_back(pom);
-//        pom = false;
-//    };
-//
-//    for(auto it = worker_cbegin(); it != worker_cend(); it ++){
-//        workers_connection.emplace_back(std::vector<bool>(std::size(map_workers)));
-//    };
-//
-//
-//    for(auto it = worker_cbegin(); it != worker_cend(); it ++){
-//
-//        std::size_t index = find_index(it->get_id(),map_workers);
-//
-//        for(auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cend();it2++){
-//            if (it2->first->get_receiver_type() == ReceiverType::WORKER) {
-//                workers_connection[it2->first->get_id()][index] = true;
-//            };
-//        };
-//    };
-//
-//    for(auto it = ramp_cbegin(); it != ramp_cend(); it ++){
-//        if(it -> receiver_preferences_.empty()) {
-//            throw std::invalid_argument("Ramp without reciver");
-//        };
-//
-//    };
-//    bool is_any_not_itself = false;
-//    for(auto it = worker_cbegin(); it != worker_cend(); it ++){
-//        if(it -> receiver_preferences_.empty()) {
-//            throw std::invalid_argument("Worker without reciver");
-//        };
-//        is_any_not_itself = false;
-//        for(auto it2 = it->receiver_preferences_.cbegin(); it2 != it->receiver_preferences_.cbegin(); it2 ++){
-//            if(it2->first->get_id()!=it->get_id()){
-//                is_any_not_itself = true;
-//            }
-//        }
-//        if(!is_any_not_itself){
-//            throw std::invalid_argument("Worker without other reciver than itself");
-//        }
-//
-//    }
-//
-//
-//
-//
-//    std::function<void(std::vector<std::vector<bool>>&,std::size_t,std::vector<bool>&)> dfs_algorithm_function = [](std::vector<std::vector<bool>>& graph,std::size_t index, std::vector<bool>& visited){
-//
-//        std::vector<bool> is_checked;
-//        for(auto i : graph){
-//            is_checked.push_back(false);
-//        }
-//        std::stack<int> stack;
-//        stack.push(index);
-//
-//
-//        int top = stack.top();
-//        while(!stack.empty()){
-//            top = stack.top();
-//            stack.pop();
-//            is_checked[top] = true;
-//            for(auto i : graph[top]){
-//                if(!is_checked[i]){
-//                    stack.push(i);
-//                }
-//            }
-//        }
-//        for(std::size_t i =0 ;std::size(is_checked) < i; i++){
-//            if(is_checked[i]){visited[i] = true;}
-//        };
-//    };
-//
-//
-//    std::vector<bool> if_ever_visited;
-//    for(std::size_t i = 0; i < std::size(storage_access);i++){
-//        if_ever_visited.push_back(false);
-//    }
-//
-//    for(std::size_t i = 0; i < std::size(storage_access);i++){
-//        /////
-//        std::vector<bool> is_checked;
-//        for(auto i : workers_connection){
-//            is_checked.push_back(false);
-//        }
-//        std::stack<int> stack;
-//        stack.push(i);
-//        int top = stack.top();
-//        while(!stack.empty()){
-//            top = stack.top();
-//            stack.pop();
-//            is_checked[top] = true;
-//            for(auto i : workers_connection[top]){
-//                if(!is_checked[i]){
-//                    stack.push(i);
-//                }
-//            }
-//        }
-//        for(std::size_t i =0 ;std::size(is_checked) < i; i++){
-//            if(is_checked[i]){visited[i] = true;}
-//        };
-//        /////
-//        //dfs_algorithm_function(workers_connection, i, if_ever_visited);
-//    };
-//    for(std::size_t i = 0; i < std::size(if_ever_visited);i++){
-//        if(!if_ever_visited[i]){throw std::invalid_argument("Inconsistent network");}
-//
-//    };
-//
-//    for(auto it = ramp_cbegin(); it != ramp_cend(); it ++) {
-//        if(std::distance(it->receiver_preferences_.cbegin(),it->receiver_preferences_.cend()) == 0){return  false;};
-//    };
-//    return true;
 }
 
 void Factory::do_deliveries(Time t)  {
@@ -298,9 +160,9 @@ void Factory::remove_worker(ElementID id) {
     }
 
 }
-void Factory::remove_Storehouse(ElementID id){
-    if(Storehouses_.find_by_id(id) != Storehouses_.end()){
-        Storehouse* usuwany = &*Storehouses_.find_by_id(id);
+void Factory::remove_storehouse(ElementID id){
+    if(storehouses_.find_by_id(id) != storehouses_.end()){
+        Storehouse* usuwany = &*storehouses_.find_by_id(id);
         for(auto it = workers_.begin(); it != workers_.end(); it ++){
             it->receiver_preferences_.remove_receiver(usuwany);
         };

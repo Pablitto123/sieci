@@ -10,7 +10,7 @@ std::set<ElementID> Package::freed_IDs = {};
 std::set<ElementID> Package::assigned_IDs = {};
 Package::Package() {
     if(freed_IDs.empty() && assigned_IDs.empty()) {
-        Id_ = 0;
+        Id_ = 1;
         assigned_IDs.insert(Id_);
     }
     else if(!freed_IDs.empty()){
@@ -33,21 +33,8 @@ Package::Package(ElementID Id) {
     assigned_IDs.insert(Id_);
 }
 
-//void Package::Add_Id(ElementID idd){
-//    freed_IDs.erase(idd);
-//    assigned_IDs.insert(idd);
-//}
 
-/*
-void Package::destroy() {
+Package::~Package() {
     freed_IDs.insert(Id_);
     assigned_IDs.erase(Id_);
-    delete this;
-}
-*/
-Package::~Package() {
-    if(Id_ != SIZE_MAX){
-        freed_IDs.insert(Id_);
-        assigned_IDs.erase(Id_);
-    }
 }
