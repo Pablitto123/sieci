@@ -64,7 +64,7 @@ private:
 class PackageSender{
 public:
     explicit PackageSender(ReceiverPreferences&& rp): receiver_preferences_(std::move(rp)){}
-    PackageSender():receiver_preferences_(){}
+    PackageSender(): receiver_preferences_(ReceiverPreferences()){}
     PackageSender(PackageSender&& sender) = default;
     void send_package();
     std::optional<Package>& get_sending_buffer();
