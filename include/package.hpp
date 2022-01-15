@@ -19,7 +19,11 @@ public:
     explicit Package(ElementID Id );
     Package(Package&& package) = default;
     //Package(Package&& package) :Id_(package.Id_){};
-    Package& operator=(Package&&) noexcept {return *this;}
+    Package& operator=(Package&& package) noexcept {
+        freed_IDs.insert(Id_);
+        assigned_IDs.erase(Id_);
+        Id_ = package.Id_;
+        return package;}
     ElementID get_id() const {return Id_;};
     ~Package();
 
