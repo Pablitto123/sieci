@@ -8,9 +8,7 @@
 #include "config.hpp"
 
 #include "nodes.hpp"
-
 #define WITH_RECEIVER_TYPE
-
 class MockReceiver : public IPackageReceiver {
 public:
     MOCK_METHOD1(receive_package, void(Package&&));

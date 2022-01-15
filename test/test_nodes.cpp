@@ -106,7 +106,6 @@ TEST_F(ReceiverPreferencesChoosingTest, ChooseReceiver) {
     rp.add_receiver(&r1);
     rp.add_receiver(&r2);
 
-
     if (rp.begin()->first == &r1) {
         EXPECT_EQ(rp.choose_receiver(), &r1);
         EXPECT_EQ(rp.choose_receiver(), &r2);

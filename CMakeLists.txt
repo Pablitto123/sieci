@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-Wall -Wextra -Werror -Wpedantic -pedantic-errors)
 include_directories(
         include
+        mocks
 )
 
 set(SOURCE_FILES
