@@ -130,13 +130,13 @@ public:
     ReceiverType get_receiver_type() {return ReceiverType::STOREHOUSE;}
     void receive_package(Package &&p) override{d_->push(std::move(p));}
     IPackageStockpile::const_iterator cbegin() const override {return d_.get()->cbegin();};
-    IPackageStockpile::const_iterator cend() const override {return d_.get()->cbegin();};
+    IPackageStockpile::const_iterator cend() const override {return d_.get()->cend();};
     IPackageStockpile::const_iterator cbegin()  {return d_.get()->cbegin();};
-    IPackageStockpile::const_iterator cend()  {return d_.get()->cbegin();};
+    IPackageStockpile::const_iterator cend()  {return d_.get()->cend();};
     IPackageStockpile::iterator begin() {return d_.get()->begin();};
     IPackageStockpile::iterator end() {return d_.get()->end();};
     IPackageStockpile::const_iterator begin() const override {return d_.get()->cbegin();};
-    IPackageStockpile::const_iterator end() const override {return d_.get()->cbegin();};
+    IPackageStockpile::const_iterator end() const override {return d_.get()->cend();};
     IPackageStockpile* get_queue() const {return d_.get();}
 private:
     ElementID id_;
