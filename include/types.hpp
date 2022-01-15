@@ -10,7 +10,7 @@
 #include <vector>
 #include <iostream>
 #include <set>
-
+#include <functional>
 using ElementID = unsigned long long;
 using ProbabilityGenerator = std::function<double()>;
 using Time = unsigned long int;
