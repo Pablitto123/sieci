@@ -2,9 +2,10 @@ cmake_minimum_required(VERSION 3.17)
 project(sieci)
 
 set(CMAKE_CXX_STANDARD 17)
-add_compile_options(-Wall -Wextra -Werror -Wpedantic -pedantic-errors)
+add_compile_options(-Wall -Wextra -Werror -Wpedantic -pedantic-errors -Werror=switch)
 include_directories(
         include
+        mocks
 )
 
 set(SOURCE_FILES
@@ -24,13 +25,13 @@ add_executable(sieci ${SOURCE_FILES} main.cpp)
 
 set(SOURCES_FILES_TESTS
         test/test_Factory.cpp
-        #test/test_factory_io.cpp
+        test/test_factory_io.cpp
         test/test_nodes.cpp
-        #test/test_reports.cpp
-        #test/test_simulate.cpp
+        test/test_reports.cpp
+        test/test_simulate.cpp
         test/test_storage_types.cpp
         test/test_package.cpp
-        )
+        include/reports.hpp include/simulation.hpp src/simulation.cpp src/reports.cpp)
 
 # Dodaj konfigurację typu `Test`.
 add_executable(my_project_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)

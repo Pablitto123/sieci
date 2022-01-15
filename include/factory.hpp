@@ -54,9 +54,9 @@ public:
 
     const_iterator cbegin() const { return collection_.cbegin(); }
 
-    const_iterator cend()  { return collection_.cbegin(); }
+    const_iterator cend()  { return collection_.cend(); }
 
-    const_iterator cend() const { return collection_.cbegin(); }
+    const_iterator cend() const { return collection_.cend(); }
 
     iterator begin()  { return collection_.begin(); }
 
@@ -78,11 +78,11 @@ public:
     using iterator = typename std::list<Worker>::iterator;
     const_iterator cbegin() { return collection_.cbegin(); }
 
-    const_iterator cend()  { return collection_.cbegin(); }
+    const_iterator cend()  { return collection_.cend(); }
 
     const_iterator cbegin() const { return collection_.cbegin(); }
 
-    const_iterator cend() const { return collection_.cbegin(); }
+    const_iterator cend() const { return collection_.cend(); }
 
     iterator begin()  { return collection_.begin(); }
 
@@ -104,9 +104,9 @@ public:
 
     const_iterator cbegin() const { return collection_.cbegin(); }
 
-    const_iterator cend()  { return collection_.cbegin(); }
+    const_iterator cend()  { return collection_.cend(); }
 
-    const_iterator cend() const { return collection_.cbegin(); }
+    const_iterator cend() const { return collection_.cend(); }
 
     iterator begin()  { return collection_.begin(); }
 
@@ -152,9 +152,13 @@ public:
 
 
 
+    void add_Storehouse(Storehouse&& storage){storehouses_.add(std::move(storage));};
     void add_storehouse(Storehouse&& storage){storehouses_.add(std::move(storage));};
     void remove_storehouse(ElementID id);
-    std::list<Storehouse>::iterator find_storehouse_by_id(ElementID id){return storehouses_.find_by_id(id);};
+    void remove_Storehouse(ElementID id){ remove_storehouse(id);};
+    std::list<Storehouse>::iterator find_Storehouse_by_id(ElementID id){return storehouses_.find_by_id(id);};
+    std::list<Storehouse>::iterator find_storehouse_by_id(ElementID id){return find_Storehouse_by_id(id);};
+    [[nodiscard]] std::list<Storehouse>::const_iterator find_Storehouse_by_id(ElementID id) const{return storehouses_.find_by_id(id);};
     [[nodiscard]] std::list<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const{return storehouses_.find_by_id(id);};
     [[nodiscard]] std::list<Storehouse>::const_iterator storehouse_cbegin() const { return storehouses_.cbegin(); };
     [[nodiscard]] std::list<Storehouse>::const_iterator storehouse_cend() const { return storehouses_.cend(); };
@@ -169,6 +173,7 @@ private:
     template<typename T>
     void remove_receiver(NodeCollection<T>& lst,ElementID id);
 };
-
+Factory load_factory_structure(std::istream& is);
+void save_factory_structure( Factory& factory, std::ostream& os);
 
 #endif //SIECI_FACTORY_HPP

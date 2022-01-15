@@ -56,34 +56,34 @@ TEST(RampTest, IsDeliveryOnTime) {
 
 // -----------------
 
-//TEST(ReceiverPreferencesTest, AddReceiversRescalesProbability) {
-//    // Upewnij się, że dodanie odbiorcy spowoduje przeskalowanie prawdopodobieństw.
-//    ReceiverPreferences rp;
-//
-//    MockReceiver r1;
-//    rp.add_receiver(&r1);
-//    ASSERT_NE(rp.get_preferences().find(&r1), rp.get_preferences().end());
-//    EXPECT_EQ(rp.get_preferences().at(&r1), 1.0);
-//
-//    MockReceiver r2;
-//    rp.add_receiver(&r2);
-//    EXPECT_EQ(rp.get_preferences().at(&r1), 0.5);
-//    ASSERT_NE(rp.get_preferences().find(&r2), rp.get_preferences().end());
-//    EXPECT_EQ(rp.get_preferences().at(&r2), 0.5);
-//}
-//
-//TEST(ReceiverPreferencesTest, RemoveReceiversRescalesProbability) {
-//    // Upewnij się, że usunięcie odbiorcy spowoduje przeskalowanie pozostałych prawdopodobieństw.
-//    ReceiverPreferences rp;
-//
-//    MockReceiver r1, r2;
-//    rp.add_receiver(&r1);
-//    rp.add_receiver(&r2);
-//
-//    rp.remove_receiver(&r2);
-//    ASSERT_EQ(rp.get_preferences().find(&r2), rp.get_preferences().end());
-//    EXPECT_EQ(rp.get_preferences().at(&r1), 1.0);
-//}
+TEST(ReceiverPreferencesTest, AddReceiversRescalesProbability) {
+    // Upewnij się, że dodanie odbiorcy spowoduje przeskalowanie prawdopodobieństw.
+    ReceiverPreferences rp;
+
+    MockReceiver r1;
+    rp.add_receiver(&r1);
+    ASSERT_NE(rp.get_preferences().find(&r1), rp.get_preferences().end());
+    EXPECT_EQ(rp.get_preferences().at(&r1), 1.0);
+
+    MockReceiver r2;
+    rp.add_receiver(&r2);
+    EXPECT_EQ(rp.get_preferences().at(&r1), 0.5);
+    ASSERT_NE(rp.get_preferences().find(&r2), rp.get_preferences().end());
+    EXPECT_EQ(rp.get_preferences().at(&r2), 0.5);
+}
+
+TEST(ReceiverPreferencesTest, RemoveReceiversRescalesProbability) {
+    // Upewnij się, że usunięcie odbiorcy spowoduje przeskalowanie pozostałych prawdopodobieństw.
+    ReceiverPreferences rp;
+
+    MockReceiver r1, r2;
+    rp.add_receiver(&r1);
+    rp.add_receiver(&r2);
+
+    rp.remove_receiver(&r2);
+    ASSERT_EQ(rp.get_preferences().find(&r2), rp.get_preferences().end());
+    EXPECT_EQ(rp.get_preferences().at(&r1), 1.0);
+}
 
 // Przydatny alias, żeby zamiast pisać `::testing::Return(...)` móc pisać
 // samo `Return(...)`.
@@ -95,25 +95,25 @@ using ::testing::Return;
 class ReceiverPreferencesChoosingTest : public GlobalFunctionsFixture {
 };
 
-//TEST_F(ReceiverPreferencesChoosingTest, ChooseReceiver) {
-//    // Upewnij się, że odbiorcy wybierani są z właściwym prawdopodobieństwem.
-//
-//    EXPECT_CALL(global_functions_mock, generate_canonical()).WillOnce(Return(0.3)).WillOnce(Return(0.7));
-//
-//    ReceiverPreferences rp;
-//
-//    MockReceiver r1, r2;
-//    rp.add_receiver(&r1);
-//    rp.add_receiver(&r2);
-//
-//    if (rp.begin()->first == &r1) {
-//        EXPECT_EQ(rp.choose_receiver(), &r1);
-//        EXPECT_EQ(rp.choose_receiver(), &r2);
-//    } else {
-//        EXPECT_EQ(rp.choose_receiver(), &r2);
-//        EXPECT_EQ(rp.choose_receiver(), &r1);
-//    }
-//}
+TEST_F(ReceiverPreferencesChoosingTest, ChooseReceiver) {
+    // Upewnij się, że odbiorcy wybierani są z właściwym prawdopodobieństwem.
+
+    EXPECT_CALL(global_functions_mock, generate_canonical()).WillOnce(Return(0.3)).WillOnce(Return(0.7));
+
+    ReceiverPreferences rp;
+
+    MockReceiver r1, r2;
+    rp.add_receiver(&r1);
+    rp.add_receiver(&r2);
+
+    if (rp.begin()->first == &r1) {
+        EXPECT_EQ(rp.choose_receiver(), &r1);
+        EXPECT_EQ(rp.choose_receiver(), &r2);
+    } else {
+        EXPECT_EQ(rp.choose_receiver(), &r2);
+        EXPECT_EQ(rp.choose_receiver(), &r1);
+    }
+}
 
 // -----------------
 
@@ -141,21 +141,21 @@ public:
 };
 
 
-//TEST(PackageSenderTest, SendPackage) {
-//    MockReceiver mock_receiver;
-//    // Oczekujemy, że metoda `receive_package()` obiektu `mock_receiver` zostanie
-//    // wywołana dwukrotnie, z dowolnym argumentem (symbol `_`).
-//    EXPECT_CALL(mock_receiver, receive_package(_)).Times(1);
-//
-//    PackageSenderFixture sender;
-//    sender.receiver_preferences_.add_receiver(&mock_receiver);
-//    // Zwróć uwagę, że poniższa instrukcja korzysta z semantyki referencji do r-wartości.
-//    sender.push_package(Package());
-//
-//    sender.send_package();
-//
-//    EXPECT_FALSE(sender.get_sending_buffer());
-//
-//    // Upewnij się, że proces wysyłania zachodzi tylko wówczas, gdy w bufor jest pełny.
-//    sender.send_package();
-//}
+TEST(PackageSenderTest, SendPackage) {
+    MockReceiver mock_receiver;
+    // Oczekujemy, że metoda `receive_package()` obiektu `mock_receiver` zostanie
+    // wywołana dwukrotnie, z dowolnym argumentem (symbol `_`).
+    EXPECT_CALL(mock_receiver, receive_package(_)).Times(1);
+
+    PackageSenderFixture sender;
+    sender.receiver_preferences_.add_receiver(&mock_receiver);
+    // Zwróć uwagę, że poniższa instrukcja korzysta z semantyki referencji do r-wartości.
+    sender.push_package(Package());
+
+    sender.send_package();
+
+    EXPECT_FALSE(sender.get_sending_buffer());
+
+    // Upewnij się, że proces wysyłania zachodzi tylko wówczas, gdy w bufor jest pełny.
+    sender.send_package();
+}

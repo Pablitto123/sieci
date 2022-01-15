@@ -33,7 +33,6 @@ Package::Package(ElementID Id) {
     assigned_IDs.insert(Id_);
 }
 
-
 Package::~Package() {
     freed_IDs.insert(Id_);
     assigned_IDs.erase(Id_);
