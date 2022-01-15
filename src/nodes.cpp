@@ -64,8 +64,7 @@ void Worker::do_work(Time t) {
     if(start_ == 0 and !q_->empty() and !buffer_processing_){
         buffer_processing_ = q_->pop();
         start_ = t;
-    }
-    if(t - start_ -1>= pd_ and bool(buffer_processing_)){
+    }else if(t - start_+1>= pd_ and bool(buffer_processing_)){
 
         push_package(std::move(buffer_processing_.value()));
 //        buffer_processing_->changeID();

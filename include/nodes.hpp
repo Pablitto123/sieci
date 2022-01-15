@@ -68,6 +68,7 @@ public:
     PackageSender(PackageSender&& sender) = default;
     void send_package();
     std::optional<Package>& get_sending_buffer();
+    const std::optional<Package>& get_sending_buffer() const {return buffer_;};
     ~PackageSender() = default;
     ReceiverPreferences receiver_preferences_;
 protected:
@@ -110,6 +111,7 @@ public:
     ReceiverType get_receiver_type() const override{return ReceiverType::WORKER;}
     void receive_package(Package &&p) override{q_->push(std::move(p));}
     IPackageQueue* get_queue() const {return q_.get();}
+    const std::optional<Package>& get_package_processing_buffor() const {return buffer_processing_;}
 private:
     std::optional<Package> buffer_processing_;
     ElementID id_;
@@ -135,6 +137,7 @@ public:
     IPackageStockpile::iterator end() {return d_.get()->end();};
     IPackageStockpile::const_iterator begin() const override {return d_.get()->cbegin();};
     IPackageStockpile::const_iterator end() const override {return d_.get()->cbegin();};
+    IPackageStockpile* get_queue() const {return d_.get();}
 private:
     ElementID id_;
     std::unique_ptr<IPackageStockpile> d_;

@@ -153,9 +153,13 @@ public:
 
 
     void add_Storehouse(Storehouse&& storage){storehouses_.add(std::move(storage));};
+    void add_storehouse(Storehouse&& storage){storehouses_.add(std::move(storage));};
     void remove_storehouse(ElementID id);
+    void remove_Storehouse(ElementID id){ remove_storehouse(id);};
     std::list<Storehouse>::iterator find_Storehouse_by_id(ElementID id){return storehouses_.find_by_id(id);};
+    std::list<Storehouse>::iterator find_storehouse_by_id(ElementID id){return find_Storehouse_by_id(id);};
     [[nodiscard]] std::list<Storehouse>::const_iterator find_Storehouse_by_id(ElementID id) const{return storehouses_.find_by_id(id);};
+    [[nodiscard]] std::list<Storehouse>::const_iterator find_storehouse_by_id(ElementID id) const{return storehouses_.find_by_id(id);};
     [[nodiscard]] std::list<Storehouse>::const_iterator storehouse_cbegin() const { return storehouses_.cbegin(); };
     [[nodiscard]] std::list<Storehouse>::const_iterator storehouse_cend() const { return storehouses_.cend(); };
     std::list<Storehouse>::const_iterator storehouse_cbegin() { return storehouses_.cbegin(); };

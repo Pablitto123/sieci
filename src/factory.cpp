@@ -306,16 +306,12 @@ Factory load_factory_structure(std::istream& is){
 }
 void save_factory_structure( Factory& factory, std::ostream& os){
     os.flush();
-    int counter = 0;
     for(auto i = factory.ramp_cbegin(); i!= factory.ramp_cend(); i++){
         if(i == factory.ramp_cbegin()){
             os<<"LOADING_RAMP id="<<std::to_string(i->get_id())<<" delivery-interval="<<std::to_string(i->get_delivery_interval());
 
-            counter++;
-
         }else{
             os<<"\n"<<"LOADING_RAMP id="<<std::to_string(i->get_id())<<" delivery-interval="<<std::to_string(i->get_delivery_interval());
-            counter++;
         }
 
     }
@@ -335,11 +331,9 @@ void save_factory_structure( Factory& factory, std::ostream& os){
                 break;
         }
         os<<"\n"<<"WORKER id="<<std::to_string(i->get_id())<<" processing-time="<<std::to_string(i->get_processing_duration())<<" queue-type="<<queue_type;
-        counter++;
     }
     for(auto i = factory.storehouse_cbegin(); i!= factory.storehouse_cend(); i++){
         os<<"\n"<<"STOREHOUSE id="<<std::to_string(i->get_id());
-        counter++;
     }
     std::string receiver_type;
     for(auto i = factory.ramp_cbegin(); i!= factory.ramp_cend(); i++){
@@ -357,7 +351,6 @@ void save_factory_structure( Factory& factory, std::ostream& os){
                     break;
             }
             os<<"\n"<<"LINK src=ramp-"<<std::to_string(i->get_id())<<" dest="<<receiver_type<<"-"<<std::to_string(it->first->get_id());
-            counter++;
         }
     }
     for(auto i = factory.worker_cbegin(); i!= factory.worker_cend(); i++){
@@ -375,7 +368,6 @@ void save_factory_structure( Factory& factory, std::ostream& os){
                     break;
             }
             os<<"\n"<<"LINK src=worker-"<<std::to_string(i->get_id())<<" dest="<<receiver_type<<"-"<<std::to_string(it->first->get_id());
-            counter++;
         }
     }
 }

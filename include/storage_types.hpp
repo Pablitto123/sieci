@@ -64,11 +64,11 @@ public:
 
     const_iterator cbegin() const override { return products_lst_.cbegin(); }
 
-    const_iterator cend() const override { return products_lst_.cbegin(); }
+    const_iterator cend() const override { return products_lst_.cend(); }
 
     const_iterator cbegin() override { return products_lst_.cbegin(); }
 
-    const_iterator cend() override { return products_lst_.cbegin(); }
+    const_iterator cend() override { return products_lst_.cend(); }
 
     iterator begin() override { return products_lst_.begin(); }
 
