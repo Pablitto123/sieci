@@ -44,7 +44,7 @@ public:
     void remove_receiver(IPackageReceiver* r);
     IPackageReceiver* choose_receiver();
     preferences_t& get_preferences(){ return pref_;}
-
+    preferences_t& get_preferences() const { return const_cast<preferences_t&>(pref_);}
     const_iterator cbegin() const{ return pref_.cbegin(); }
     const_iterator cend() const{ return pref_.cend(); }
 //    preferences_t::iterator begin() { return pref_.begin(); }
@@ -82,7 +82,7 @@ public:
 
     Ramp(Ramp&&) = default;
     void deliver_goods(Time t);
-    TimeOffset get_delivery_interval(){ return di_; };
+    TimeOffset get_delivery_interval() const { return di_; };
     ElementID get_id() const{ return id_; };
     ElementID get_id() { return id_; };
     ~Ramp() = default;
@@ -109,7 +109,7 @@ public:
     ElementID get_id() const override{return id_;}
     ReceiverType get_receiver_type() const override{return ReceiverType::WORKER;}
     void receive_package(Package &&p) override{q_->push(std::move(p));}
-
+    IPackageQueue* get_queue() const {return q_.get();}
 private:
     std::optional<Package> buffer_processing_;
     ElementID id_;

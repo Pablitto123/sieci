@@ -54,9 +54,9 @@ public:
 
     const_iterator cbegin() const { return collection_.cbegin(); }
 
-    const_iterator cend()  { return collection_.cbegin(); }
+    const_iterator cend()  { return collection_.cend(); }
 
-    const_iterator cend() const { return collection_.cbegin(); }
+    const_iterator cend() const { return collection_.cend(); }
 
     iterator begin()  { return collection_.begin(); }
 
@@ -78,11 +78,11 @@ public:
     using iterator = typename std::list<Worker>::iterator;
     const_iterator cbegin() { return collection_.cbegin(); }
 
-    const_iterator cend()  { return collection_.cbegin(); }
+    const_iterator cend()  { return collection_.cend(); }
 
     const_iterator cbegin() const { return collection_.cbegin(); }
 
-    const_iterator cend() const { return collection_.cbegin(); }
+    const_iterator cend() const { return collection_.cend(); }
 
     iterator begin()  { return collection_.begin(); }
 
@@ -104,9 +104,9 @@ public:
 
     const_iterator cbegin() const { return collection_.cbegin(); }
 
-    const_iterator cend()  { return collection_.cbegin(); }
+    const_iterator cend()  { return collection_.cend(); }
 
-    const_iterator cend() const { return collection_.cbegin(); }
+    const_iterator cend() const { return collection_.cend(); }
 
     iterator begin()  { return collection_.begin(); }
 
@@ -169,6 +169,7 @@ private:
     template<typename T>
     void remove_receiver(NodeCollection<T>& lst,ElementID id);
 };
-
+Factory load_factory_structure(std::istream& is);
+void save_factory_structure( Factory& factory, std::ostream& os);
 
 #endif //SIECI_FACTORY_HPP

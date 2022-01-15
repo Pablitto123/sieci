@@ -139,6 +139,8 @@ TEST(FactoryIOTest, ParseLinkMultipleReceivers) {
 //    EXPECT_DOUBLE_EQ(prefs[key2], 0.7);
 //}
 
+//// to uncomment:
+/*
 TEST(FactoryIOTest, LoadAndSaveTest) {
     std::string r1 = "LOADING_RAMP id=1 delivery-interval=3";
     std::string r2 = "LOADING_RAMP id=2 delivery-interval=2";
@@ -243,3 +245,4 @@ TEST(FactoryIOTest, LoadAndSaveTest) {
     ASSERT_LT(first_worker_it, first_storehouse_it);
     ASSERT_LT(first_storehouse_it, first_link_it);
 }
+*/
