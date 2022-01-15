@@ -13,6 +13,6 @@ double default_probability_generator() {
     // Generuj liczby pseudolosowe z przedziału [0, 1); 10 bitów losowości.
     return std::generate_canonical<double, 10>(rng);
 }
-
-std::function<double()> probability_generator = default_probability_generator;
+ProbabilityGenerator generate_canonical = [](){return default_probability_generator();};
+std::function<double()> probability_generator = generate_canonical;
 
