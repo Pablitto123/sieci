@@ -305,6 +305,7 @@ Factory load_factory_structure(std::istream& is){
 
 }
 void save_factory_structure( Factory& factory, std::ostream& os){
+    os.flush();
     int counter = 0;
     for(auto i = factory.ramp_cbegin(); i!= factory.ramp_cend(); i++){
         if(i == factory.ramp_cbegin()){
