@@ -6,29 +6,39 @@ void generate_structure_report(const Factory& f, std::ostream& os){
     os<<"\n== LOADING RAMPS ==\n\n";
     std::set<ElementID> workers;
     std::set<ElementID> stores;
+    std::set<ElementID> node;
     for(auto i = f.ramp_cbegin();i!= f.ramp_cend();i++){
-        os<<"LOADING RAMP #"<<std::to_string(i->get_id())<<"\n  Delivery interval: "<<std::to_string(i->get_delivery_interval())<<"\n  Receivers:\n";
-        for(auto it = i->receiver_preferences_.cbegin(); it != i->receiver_preferences_.cend();it++){
+        node.insert(i->get_id());
+    }
+    for(auto i : node){
+        os<<"LOADING RAMP #"<<std::to_string(f.find_ramp_by_id(i)->get_id())<<"\n  Delivery interval: "<<std::to_string(f.find_ramp_by_id(i)->get_delivery_interval())<<"\n  Receivers:\n";
+        for(auto it = f.find_ramp_by_id(i)->receiver_preferences_.cbegin(); it != f.find_ramp_by_id(i)->receiver_preferences_.cend();it++){
             if(it->first->get_receiver_type() == ReceiverType::WORKER){
                 workers.insert(it->first->get_id());
             }else if(it->first->get_receiver_type() == ReceiverType::STOREHOUSE){
                 stores.insert(it->first->get_id());
             }
         }
-        for(auto j : workers){
-            os<<"    worker #"<<std::to_string(j)<<"\n";
-        }
         for(auto j : stores){
             os<<"    storehouse #"<<std::to_string(j)<<"\n";
         }
+        for(auto j : workers){
+            os<<"    worker #"<<std::to_string(j)<<"\n";
+        }
+
         os<<"\n";
     }
     workers.clear();
     stores.clear();
+    node.clear();
     os<<"\n== WORKERS ==\n\n";
     std::string queue_type;
+
     for(auto i = f.worker_cbegin();i!= f.worker_cend();i++){
-        switch (i->get_queue()->get_queue_type()){
+        node.insert(i->get_id());
+    }
+    for(auto i : node){
+        switch (f.find_worker_by_id(i)->get_queue()->get_queue_type()){
             case PackageQueueType::LIFO:{
                 queue_type = "LIFO";
                 break;
@@ -40,8 +50,8 @@ void generate_structure_report(const Factory& f, std::ostream& os){
             default:
                 break;
         }
-        os<<"WORKER #"<<std::to_string(i->get_id())<<"\n  Processing time: "<<std::to_string(i->get_processing_duration())<<"\n  Queue type: "<<queue_type<<"\n  Receivers:\n";
-        for(auto it = i->receiver_preferences_.cbegin(); it != i->receiver_preferences_.cend();it++){
+        os<<"WORKER #"<<std::to_string(f.find_worker_by_id(i)->get_id())<<"\n  Processing time: "<<std::to_string(f.find_worker_by_id(i)->get_processing_duration())<<"\n  Queue type: "<<queue_type<<"\n  Receivers:\n";
+        for(auto it = f.find_worker_by_id(i)->receiver_preferences_.cbegin(); it != f.find_worker_by_id(i)->receiver_preferences_.cend();it++){
             if(it->first->get_receiver_type() == ReceiverType::WORKER){
                 workers.insert(it->first->get_id());
             }else if(it->first->get_receiver_type() == ReceiverType::STOREHOUSE){

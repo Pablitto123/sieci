@@ -9,6 +9,7 @@
 #define REPORTING               4
 #define SIMULATION              5
 #define WITH_RECEIVER_TYPE
+#define WITH_PROBABILITY_GENERATOR
 #if defined(EXERCISE_ID)
     #if EXERCISE_ID >= EXERCISE_ID_NODES
         #define WITH_PROBABILITY_GENERATOR
