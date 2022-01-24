@@ -44,7 +44,7 @@ public:
     void remove_receiver(IPackageReceiver* r);
     IPackageReceiver* choose_receiver();
     preferences_t& get_preferences(){ return pref_;}
-    preferences_t& get_preferences() const { return const_cast<preferences_t&>(pref_);}
+    const preferences_t& get_preferences() const { return pref_;}
     const_iterator cbegin() const{ return pref_.cbegin(); }
     const_iterator cend() const{ return pref_.cend(); }
 //    preferences_t::iterator begin() { return pref_.begin(); }
